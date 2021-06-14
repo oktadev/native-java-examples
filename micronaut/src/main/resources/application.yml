@@ -1,0 +1,12 @@
+micronaut:
+  application:
+    name: app
+  security:
+    enabled: true
+    token:
+      jwt:
+        enabled: true
+        signatures:
+          jwks:
+            okta:
+              url: https://dev-1309757.okta.com/oauth2/default/v1/keys
