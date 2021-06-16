@@ -120,6 +120,11 @@
                         <groupId>org.graalvm.buildtools</groupId>
                         <artifactId>native-maven-plugin</artifactId>
                         <version>${native-buildtools.version}</version>
+                        <configuration>
+                            <buildArgs>
+                                --enable-url-protocols=https
+                            </buildArgs>
+                        </configuration>
                         <executions>
                             <execution>
                                 <id>test-native</id>
