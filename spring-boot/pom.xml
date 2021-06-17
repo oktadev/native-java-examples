@@ -50,9 +50,6 @@
                         <builder>paketobuildpacks/builder:tiny</builder>
                         <env>
                             <BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>
-                            <BP_BOOT_NATIVE_IMAGE_BUILD_ARGUMENTS>
-                                --enable-url-protocols=https
-                            </BP_BOOT_NATIVE_IMAGE_BUILD_ARGUMENTS>
                         </env>
                     </image>
                 </configuration>
@@ -120,11 +117,6 @@
                         <groupId>org.graalvm.buildtools</groupId>
                         <artifactId>native-maven-plugin</artifactId>
                         <version>${native-buildtools.version}</version>
-                        <configuration>
-                            <buildArgs>
-                                --enable-url-protocols=https
-                            </buildArgs>
-                        </configuration>
                         <executions>
                             <execution>
                                 <id>test-native</id>
