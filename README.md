@@ -1,6 +1,6 @@
 # Native Java Framework Examples: Micronaut, Quarkus, and Spring Boot
 
-This repository contains example OAuth 2.0 resource servers built with Micronaut, Quarkus, and Spring Boot. If you'd like to see how they were built, please read, [Build Native Java Apps with Micronaut, Quarkus, and Spring Boot][blog].
+This repository contains example OAuth 2.0 resource servers built with Micronaut, Quarkus, and Spring Boot. If you'd like to see how they were built, please read, [Native Java Apps with Micronaut, Quarkus, and Spring Boot][blog].
 
 **Prerequisites:** [Java 11 with GraalVM](https://sdkman.io/), https://httpie.io/[HTTPie], and [Docker](https://docs.docker.com/engine/install/).
 
@@ -83,7 +83,7 @@ Then, start each app as a native executable.
 - Quarkus: `./target/quarkus-1.0.0-SNAPSHOT-runner`
 - Spring Boot: `docker run -p 8080:8080 docker.io/library/demo:0.0.1-SNAPSHOT` (or `./target/demo` if you didn't use Docker)
 
-Please read the [Build Native Java Apps with Micronaut, Quarkus, and Spring Boot][blog] for performance comparison numbers and analysis.
+Please read the [Native Java Apps with Micronaut, Quarkus, and Spring Boot][blog] for performance comparison numbers and analysis.
 
 ## Links
 
