@@ -1,8 +1,8 @@
-# Native Java Framework Examples: Micronaut, Quarkus, and Spring Boot
+# Native Java Examples: Micronaut, Quarkus, and Spring Boot
 
-This repository contains example OAuth 2.0 resource servers built with Micronaut, Quarkus, and Spring Boot. If you'd like to see how they were built, please read, [Build Native Java Apps with Micronaut, Quarkus, and Spring Boot][blog].
+This repository contains example OAuth 2.0 resource servers built with Micronaut, Quarkus, and Spring Boot. If you'd like to see how they were built, please read [Build Native Java Apps with Micronaut, Quarkus, and Spring Boot][blog].
 
-**Prerequisites:** [Java 11 with GraalVM](https://sdkman.io/), https://httpie.io/[HTTPie], and [Docker](https://docs.docker.com/engine/install/).
+**Prerequisites:** [Java 11 with GraalVM](https://sdkman.io/), [HTTPie](https://httpie.io/), and [Docker](https://docs.docker.com/engine/install/) (optional).
 
 * [Getting Started](#getting-started)
 * [Links](#links)
@@ -11,13 +11,13 @@ This repository contains example OAuth 2.0 resource servers built with Micronaut
 
 ## Getting Started
 
-To install this example, run the following commands:
+First, clone this repository:
 
 ```bash
 git clone https://github.com/oktadev/native-java-examples.git
 ```
 
-You will need a JDK with GraalVM and its native-image compiler. Using SDKMAN, run the following command and set it as the default:
+You will need a JDK with GraalVM and its native-image compiler. Using [SDKMAN](https://sdkman.io), run the following command and set it as the default:
 
 ```bash
 sdk install java 21.1.0.r11-grl
@@ -53,9 +53,7 @@ You can generate an acces token using [OpenID Connect Debugger](https://oidcdebu
 
 Run `okta login` and open the resulting URL in your browser. Go to the **Applications** section and select the application you created with the CLI. Edit its General Settings and add **Implicit (Hybrid)** as an allowed grant type, with access token enabled. Click **Save** and copy the client ID for the next step.
 
-Now, navigate to the [OpenID Connect Debugger website](https://oidcdebugger.com/). Fill in your client ID, and use `https://{yourOktaDomain}/oauth2/default/v1/authorize` for the Authorize URI. The state field must be filled but can contain any characters. Select **token for the response type**.
-
-Click **Send Request** to continue.
+Now, navigate to the [OpenID Connect Debugger website](https://oidcdebugger.com/). Fill in your client ID, and use `https://{yourOktaDomain}/oauth2/default/v1/authorize` for the Authorize URI. The state field must be filled but can contain any characters. Select **token** for the response type. Click **Send Request** to continue.
 
 Once you have an access token, set it as a `TOKEN` environment variable in a terminal window.
 
@@ -83,7 +81,7 @@ Then, start each app as a native executable.
 - Quarkus: `./target/quarkus-1.0.0-SNAPSHOT-runner`
 - Spring Boot: `docker run -p 8080:8080 docker.io/library/demo:0.0.1-SNAPSHOT` (or `./target/demo` if you didn't use Docker)
 
-Please read the [Build Native Java Apps with Micronaut, Quarkus, and Spring Boot][blog] for performance comparison numbers and analysis.
+Please read the [Build Native Java Apps with Micronaut, Quarkus, and Spring Boot][blog] for performance numbers and analysis.
 
 ## Links
 
