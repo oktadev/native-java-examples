@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.nativex.hint.NativeHint;
 
 @SpringBootApplication
-@NativeHint(options = "--enable-url-protocols=https")
+@NativeHint(options = "--enable-https")
 public class DemoApplication {
 
     public static void main(String[] args) {
