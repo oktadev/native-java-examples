@@ -137,7 +137,7 @@ mvn io.quarkus:quarkus-maven-plugin:2.3.0.Final:create \
     -DprojectArtifactId=quarkus \
     -DclassName="com.okta.rest.quarkus.HelloResource" \
     -Dpath="/hello" \
-    -Dextensions="smallrye-jwt"
+    -Dextensions="smallrye-jwt,resteasy-reactive"
 ----
 
 . Edit `src/java/com/okta/rest/quarkus/HelloResource.java` and add user information to the `hello()` method: [`qk-hello`]
