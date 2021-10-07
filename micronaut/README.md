@@ -1,10 +1,14 @@
-## Micronaut 2.5.6 Documentation
+## Micronaut 3.0.3 Documentation
 
-- [User Guide](https://docs.micronaut.io/2.5.6/guide/index.html)
-- [API Reference](https://docs.micronaut.io/2.5.6/api/index.html)
-- [Configuration Reference](https://docs.micronaut.io/2.5.6/guide/configurationreference.html)
+- [User Guide](https://docs.micronaut.io/3.0.3/guide/index.html)
+- [API Reference](https://docs.micronaut.io/3.0.3/api/index.html)
+- [Configuration Reference](https://docs.micronaut.io/3.0.3/guide/configurationreference.html)
 - [Micronaut Guides](https://guides.micronaut.io/index.html)
 ---
+
+## Feature security-jwt documentation
+
+- [Micronaut Security JWT documentation](https://micronaut-projects.github.io/micronaut-security/latest/guide/index.html)
 
 ## Feature http-client documentation
 
