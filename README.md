@@ -79,7 +79,7 @@ Then, start each app as a native executable.
 
 - Micronaut: `./target/app`
 - Quarkus: `./target/quarkus-1.0.0-SNAPSHOT-runner`
-- Spring Boot: `docker run -p 8080:8080 docker.io/library/demo:0.0.1-SNAPSHOT` (or `./target/demo` if you didn't use Docker)
+- Spring Boot: `docker run -p 8080:8080 demo:0.0.1-SNAPSHOT` (or `./target/demo` if you didn't use Docker)
 
 Please read [Build Native Java Apps with Micronaut, Quarkus, and Spring Boot][blog] for performance numbers and analysis.
 
