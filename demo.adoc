@@ -8,9 +8,9 @@ In this demo, I'll show how to create native images with Micronaut, Quarkus, and
 
 **Prerequisites:**
 
-- https://sdkman.io/[Java 11 with GraalVM]+
+- https://sdkman.io/[SDKMAN] (for Java 11 with GraalVM and Micronaut)
 - https://httpie.io/[HTTPie] (a better version of cURL)
-- An https://developer.okta.com[Okta Developer] Account or the https://cli.okta.com/[Okta CLI]
+- An https://developer.okta.com[Okta Developer] Account (or the https://cli.okta.com/[Okta CLI])
 
 TIP: The brackets at the end of some steps indicate the IntelliJ Live Templates to use. You can find the template definitions at https://github.com/mraible/idea-live-templates[mraible/idea-live-templates].
 
@@ -53,7 +53,7 @@ mn create-app com.okta.rest.micronaut --build maven -f security-jwt
 mv app micronaut
 ----
 
-. Create `controller/HelloController.java`. [`mn-hello`]
+. Create `controller/HelloController.java`: [`mn-hello`]
 +
 [source,java]
 ----
@@ -102,15 +102,15 @@ micronaut:
 
 === Run and Test Your Micronaut API with HTTPie
 
-. Start your app.
+. Start your app:
 
   ./mvnw mn:run
 
-. Use HTTPie to pass the JWT in as a bearer token in the `Authorization` header.
+. Use HTTPie to pass the JWT in as a bearer token in the `Authorization` header:
 
   http :8080/hello Authorization:"Bearer $TOKEN"
-
-. You should get a 200 response with your email in it.
++
+You should get a 200 response with your email in it.
 
 === Build a Native Micronaut App
 
@@ -206,15 +206,15 @@ public class HelloResourceTest {
 
 === Run and Test Your Quarkus API with HTTPie
 
-. Run your Quarkus app
+. Run your Quarkus app:
 
   ./mvnw compile quarkus:dev
 
-. Test it from another terminal
+. Test it from another terminal:
 
   http :8080/hello
 
-. Test with access token
+. Test with access token:
 
   http Authorization:"Bearer $TOKEN" :8080/hello
 
@@ -234,7 +234,7 @@ public class HelloResourceTest {
 
 == Start a Spring Boot Java API
 
-. Use https://httpie.org[HTTPie] to create a Spring Boot app with OAuth 2.0 support:
+. Create a Spring Boot app with OAuth 2.0 support:
 +
 [source,shell]
 ----
@@ -331,22 +331,26 @@ TIP: To build a native app and a Docker container, use the Spring Boot Maven plu
 
   ./target/demo
 
-. Test your API with HTTPie and an access token.
+. Test your API with an access token.
 
   http :8080/hello Authorization:"Bearer $TOKEN"
 
 == Startup Time Comparison
 
-. Run each image three times before recording the numbers
-
-. Run each command five times
+. Run each image three times before recording the numbers, then each command five times
 
 . Write each time down, add them up, and divide by five for the average. For example:
 +
 ----
-Micronaut: (23 + 22 + 22 + 21 + 23) / 5 = 22.2ms
-Quarkus: (20 + 16 + 17 + 17 + 17) / 5 = 17.4ms
-Spring Boot (476 + 513 + 778 + 735 + 734) / 5 = 647.2ms
+Micronaut: (21 + 27 + 24 + 23 + 27) / 5 = 24.4ms
+Quarkus: (22 + 18 + 19 + 22 + 24) / 5 = 21ms
+Spring Boot (538 + 570 + 844 + 579 + 713) / 5 = 648.8ms
+----
++
+Using Spring Boot's "initialization completed" number:
++
+----
+Spring Boot (88 + 90 + 100 + 122 + 86) / 5 = 97.2ms
 ----
 
 == Memory Usage Comparison
@@ -365,16 +369,16 @@ Substitute `<executable>` as follows:
 |Framework | Executable | Megabytes before request | Megabytes after request
 
 |Micronaut | `app` | 29 | 62
-|Quarkus | `runner` | 20 | 34
-|Spring Boot | `demo` | 107 | 119
+|Quarkus | `runner` | 21 | 35
+|Spring Boot | `demo` | 69 | 82
 |===
 
 IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Spring Boot, do you get faster startup times for Micronaut and Quarkus too?
 
 == Native Java FTW!
 
-🚀 Find the code on GitHub: https://github.com/oktadev/native-java-examples[@oktadev/native-java-examples].
+🚀 Find the code on GitHub: https://github.com/oktadev/native-java-examples[@oktadev/native-java-examples]
 
-👀 Read the blog post: https://developer.okta.com/blog/2021/06/18/native-java-framework-comparison[Build Native Java Apps with Micronaut, Quarkus, and Spring Boot].
+📖 Read the blog post: https://developer.okta.com/blog/2021/06/18/native-java-framework-comparison[Build Native Java Apps with Micronaut, Quarkus, and Spring Boot]
 
 
