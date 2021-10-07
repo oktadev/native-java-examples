@@ -12,4 +12,5 @@ public class HelloController {
     public String hello(Principal principal) {
         return "Hello, " + principal.getName() + "!";
     }
+
 }

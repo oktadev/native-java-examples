@@ -21,4 +21,5 @@ public class HelloResource {
         Principal userPrincipal = context.getUserPrincipal();
         return "Hello, " + userPrincipal.getName() + "!";
     }
+
 }
