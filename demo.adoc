@@ -4,7 +4,7 @@
 
 = Native Java Apps Demo Steps
 
-In this demo, I'll show how to create native images with Micronaut, Quarkus, and Spring Boot. You'll see how to run a secure, OAuth 2.0-protected, Java REST API that allows JWT authentication
+In this demo, I'll show how to create native images with Micronaut, Quarkus, and Spring Boot. You'll see how to run a secure, OAuth 2.0-protected, Java REST API that allows JWT authentication.
 
 **Prerequisites:**
 
@@ -81,7 +81,7 @@ public class HelloController {
 }
 ----
 
-. Enable and configure JWT security in `src/main/resources/application.yml`: [`mn-security`]
+. Enable and configure JWT security in `src/main/resources/application.yml`: [`mn-security-config`]
 +
 [source,yaml]
 ----
