@@ -1,4 +1,4 @@
-package com.okta.rest;
+package com.okta.rest.controller;
 
 import io.helidon.security.Principal;
 import io.helidon.security.SecurityContext;
