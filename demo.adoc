@@ -8,7 +8,7 @@ In this demo, I'll show how to create native images with Micronaut, Quarkus, and
 
 **Prerequisites:**
 
-- https://sdkman.io/[SDKMAN] (for Java 11 with GraalVM and Micronaut)
+- https://sdkman.io/[SDKMAN] (for Java 17 with GraalVM and Micronaut CLI)
 - https://httpie.io/[HTTPie] (a better version of cURL)
 - An https://developer.okta.com[Okta Developer] Account (or the https://cli.okta.com/[Okta CLI])
 
@@ -18,9 +18,9 @@ toc::[]
 
 == Install a JDK with GraalVM
 
-. Use SDKMAN to install Java 11 with GraalVM
+. Use SDKMAN to install Java 17 with GraalVM
 
-  sdk install java 21.2.0.r11-grl
+  sdk install java 21.3.0.r17-grl
 
 . Add the native extension to the JDK:
 
@@ -132,7 +132,7 @@ You should get a 200 response with your email in it.
 +
 [source,shell]
 ----
-mvn io.quarkus:quarkus-maven-plugin:2.3.0.Final:create \
+mvn io.quarkus:quarkus-maven-plugin:2.5.1.Final:create \
     -DprojectGroupId=com.okta.rest \
     -DprojectArtifactId=quarkus \
     -DclassName="com.okta.rest.quarkus.HelloResource" \
@@ -238,13 +238,13 @@ public class HelloResourceTest {
 +
 [source,shell]
 ----
-http https://start.spring.io/starter.zip \
-     bootVersion==2.5.5 \
-     dependencies==web,oauth2-resource-server,native \
-     packageName==com.okta.rest \
-     name==spring-boot \
-     type==maven-project \
-     baseDir==spring-boot | tar -xzvf -
+https start.spring.io/starter.zip \
+  bootVersion==2.6.1 \
+  dependencies==web,oauth2-resource-server,native \
+  packageName==com.okta.rest \
+  name==spring-boot \
+  type==maven-project \
+  baseDir==spring-boot | tar -xzvf -
 ----
 
 . Add a `HelloController` class that returns the user's information: [`sb-hello`]
