@@ -455,9 +455,9 @@ Substitute `<executable>` as follows:
 |===
 |Framework | Executable | Megabytes before request | Megabytes after request
 
-|Micronaut | `app` | 27 | 58
+|Micronaut | `app` | 27 | 78
 |Quarkus | `runner` | 20 | 32
-|Spring Boot | `demo` | 48 | 62
+|Spring Boot | `demo` | 48 | 58
 |Helidon | `helidon` | 74 | 110
 |===
 
