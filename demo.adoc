@@ -269,11 +269,11 @@ public class HelloController {
 }
 ----
 
-. Configure the app to be an OAuth 2.0 resource server by adding the JWK Set URI to `application.properties`.
+. Configure the app to be an OAuth 2.0 resource server by adding the issuer to `application.properties`.
 +
 [source,properties]
 ----
-spring.security.oauth2.resourceserver.jwt.jwk-set-uri=https://{yourOktaDomain}/oauth2/default/v1/keys
+spring.security.oauth2.resourceserver.jwt.issuer-uri=https://{yourOktaDomain}/oauth2/default
 ----
 
 . Add a `SecurityConfiguration` class to configure JWT authentication: [`securityconfig`]
@@ -335,6 +335,98 @@ TIP: To build a native app and a Docker container, use the Spring Boot Maven plu
 
   http :8080/hello Authorization:"Bearer $TOKEN"
 
+== Construct a Helidon Java API
+
+. Create a Helidon app with OAuth 2.0 support:
++
+[source,shell]
+----
+mvn -U archetype:generate -DinteractiveMode=false \
+   -DarchetypeGroupId=io.helidon.archetypes \
+   -DarchetypeArtifactId=helidon-quickstart-mp \
+   -DarchetypeVersion=2.4.0 \
+   -DgroupId=com.okta.rest \
+   -DartifactId=helidon \
+   -Dpackage=com.okta.rest
+----
+
+. Add a `HelloController` class that returns the user's information: [`h-hello`]
++
+[source,java]
+----
+package com.okta.rest.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.security.Principal;
+
+@RestController
+public class HelloController {
+
+    @GetMapping("/hello")
+    public String hello(Principal principal) {
+        return "Hello, " + principal.getName() + "!";
+    }
+
+}
+----
+
+. Add your Okta endpoints to `src/main/resources/META-INF/microprofile-config.properties`.
++
+[source,properties]
+----
+mp.jwt.verify.publickey.location=https://{yourOktaDomain}/oauth2/default/v1/keys
+mp.jwt.verify.issuer=https://{yourOktaDomain}/oauth2/default
+----
+
+. Add a `HelloApplication` class in `src/main/java/com/okta/rest` to register your resource and configure JWT authentication: [`h-app`]
++
+[source,java]
+----
+package com.okta.rest;
+
+import com.okta.rest.controller.HelloResource;
+import org.eclipse.microprofile.auth.LoginConfig;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.ws.rs.core.Application;
+import java.util.Set;
+
+@LoginConfig(authMethod = "MP-JWT")
+@ApplicationScoped
+public class HelloApplication extends Application {
+    @Override
+    public Set<Class<?>> getClasses() {
+        return Set.of(HelloResource.class);
+    }
+}
+----
+
+=== Run and Test Your Helidon API with HTTPie
+
+. Start your app from your IDE or using a terminal:
+
+  mvn package && java -jar ./target/helidon
+
+. Test your API with an access token.
+
+  http Authorization:"Bearer $TOKEN" :8080/hello
+
+=== Build a Native Helidon App
+
+. Compile your Helidon app into a native executable using the `native-image` profile:
+
+  mvn package -Pnative-image
+
+. Start your Helidon app:
+
+  ./target/helidon
+
+. Test your API with an access token.
+
+  http :8080/hello Authorization:"Bearer $TOKEN"
+
 == Startup Time Comparison
 
 . Run each image three times before recording the numbers, then each command five times
@@ -342,15 +434,10 @@ TIP: To build a native app and a Docker container, use the Spring Boot Maven plu
 . Write each time down, add them up, and divide by five for the average. For example:
 +
 ----
-Micronaut: (21 + 22 + 21 + 31 + 25) / 5 = 24ms
-Quarkus: (18 + 19 + 19 + 21 + 20) / 5 = 19.4ms
-Spring Boot: (89 + 101 + 96 + 99 + 94) / 5 = 95.8ms
-----
-+
-Using Spring Boot's "initialization completed" number:
-+
-----
-Spring Boot: (44 + 49 + 46 + 47 + 48) / 5 = 46.8ms
+Micronaut: (20 + 19 + 21 + 22 + 20) / 5 = 20.4
+Quarkus: (18 + 16 + 16 + 18 + 17) / 5 = 17
+Spring Boot: (59 + 59 + 58 + 59 + 61) / 5 = 59.2
+Helidon: (288 + 495 + 280 + 291 + 540) / 5 = 378.8
 ----
 
 == Memory Usage Comparison
@@ -368,17 +455,18 @@ Substitute `<executable>` as follows:
 |===
 |Framework | Executable | Megabytes before request | Megabytes after request
 
-|Micronaut | `app` | 29 | 62
-|Quarkus | `runner` | 20 | 34
-|Spring Boot | `demo` | 69 | 82
+|Micronaut | `./micronaut/target/app` | 20.4
+|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 17
+|Spring Boot | `./spring-boot/target/demo` | 59.2
+|Helidon | `./helidon/target/helidon` | 378.8
 |===
 
-IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Spring Boot, do you get faster startup times for Micronaut and Quarkus too?
+IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Helidon, do you get faster startup times for Micronaut and Quarkus too?
 
 == Native Java FTW!
 
 🚀 Find the code on GitHub: https://github.com/oktadev/native-java-examples[@oktadev/native-java-examples]
 
-📖 Read the blog post: https://developer.okta.com/blog/2021/06/18/native-java-framework-comparison[Build Native Java Apps with Micronaut, Quarkus, and Spring Boot]
+📖 Read the blog post: https://developer.okta.com/blog/TBD[Build REST APIs and Native Java Apps with Helidon]
 
 

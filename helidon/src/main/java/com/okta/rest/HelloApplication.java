@@ -1,5 +1,6 @@
 package com.okta.rest;
 
+import com.okta.rest.controller.HelloResource;
 import org.eclipse.microprofile.auth.LoginConfig;
 
 import javax.enterprise.context.ApplicationScoped;
