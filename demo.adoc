@@ -269,7 +269,7 @@ public class HelloController {
 }
 ----
 
-. Configure the app to be an OAuth 2.0 resource server by adding the JWK Set URI to `application.properties`.
+. Configure the app to be an OAuth 2.0 resource server by adding the issuer to `application.properties`.
 +
 [source,properties]
 ----
@@ -342,15 +342,9 @@ TIP: To build a native app and a Docker container, use the Spring Boot Maven plu
 . Write each time down, add them up, and divide by five for the average. For example:
 +
 ----
-Micronaut: (21 + 22 + 21 + 31 + 25) / 5 = 24ms
-Quarkus: (18 + 19 + 19 + 21 + 20) / 5 = 19.4ms
-Spring Boot: (89 + 101 + 96 + 99 + 94) / 5 = 95.8ms
-----
-+
-Using Spring Boot's "initialization completed" number:
-+
-----
-Spring Boot: (44 + 49 + 46 + 47 + 48) / 5 = 46.8ms
+Micronaut: (19 + 19 + 19 + 21 + 21) / 5 = 19.8ms
+Quarkus: (17 + 19 + 19 + 18 + 19) / 5 = 18.4ms
+Spring Boot: (62 + 65 + 60 + 62 + 60) / 5 = 61.8ms
 ----
 
 == Memory Usage Comparison
@@ -368,9 +362,9 @@ Substitute `<executable>` as follows:
 |===
 |Framework | Executable | Megabytes before request | Megabytes after request
 
-|Micronaut | `app` | 29 | 62
-|Quarkus | `runner` | 20 | 34
-|Spring Boot | `demo` | 69 | 82
+|Micronaut | `app` | 27 | 78
+|Quarkus | `runner` | 20 | 32
+|Spring Boot | `demo` | 48 | 58
 |===
 
 IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Spring Boot, do you get faster startup times for Micronaut and Quarkus too?
