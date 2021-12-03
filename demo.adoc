@@ -8,7 +8,7 @@ In this demo, I'll show how to create native images with Micronaut, Quarkus, and
 
 **Prerequisites:**
 
-- https://sdkman.io/[SDKMAN] (for Java 11 with GraalVM and Micronaut)
+- https://sdkman.io/[SDKMAN] (for Java 17 with GraalVM and Micronaut CLI)
 - https://httpie.io/[HTTPie] (a better version of cURL)
 - An https://developer.okta.com[Okta Developer] Account (or the https://cli.okta.com/[Okta CLI])
 
@@ -18,9 +18,9 @@ toc::[]
 
 == Install a JDK with GraalVM
 
-. Use SDKMAN to install Java 11 with GraalVM
+. Use SDKMAN to install Java 17 with GraalVM
 
-  sdk install java 21.2.0.r11-grl
+  sdk install java 21.3.0.r17-grl
 
 . Add the native extension to the JDK:
 
@@ -132,7 +132,7 @@ You should get a 200 response with your email in it.
 +
 [source,shell]
 ----
-mvn io.quarkus:quarkus-maven-plugin:2.3.0.Final:create \
+mvn io.quarkus:quarkus-maven-plugin:2.5.1.Final:create \
     -DprojectGroupId=com.okta.rest \
     -DprojectArtifactId=quarkus \
     -DclassName="com.okta.rest.quarkus.HelloResource" \
@@ -238,13 +238,13 @@ public class HelloResourceTest {
 +
 [source,shell]
 ----
-http https://start.spring.io/starter.zip \
-     bootVersion==2.5.5 \
-     dependencies==web,oauth2-resource-server,native \
-     packageName==com.okta.rest \
-     name==spring-boot \
-     type==maven-project \
-     baseDir==spring-boot | tar -xzvf -
+https start.spring.io/starter.zip \
+  bootVersion==2.6.1 \
+  dependencies==web,oauth2-resource-server,native \
+  packageName==com.okta.rest \
+  name==spring-boot \
+  type==maven-project \
+  baseDir==spring-boot | tar -xzvf -
 ----
 
 . Add a `HelloController` class that returns the user's information: [`sb-hello`]
@@ -269,7 +269,7 @@ public class HelloController {
 }
 ----
 
-. Configure the app to be an OAuth 2.0 resource server by adding the JWK Set URI to `application.properties`.
+. Configure the app to be an OAuth 2.0 resource server by adding the issuer to `application.properties`.
 +
 [source,properties]
 ----
@@ -342,15 +342,9 @@ TIP: To build a native app and a Docker container, use the Spring Boot Maven plu
 . Write each time down, add them up, and divide by five for the average. For example:
 +
 ----
-Micronaut: (21 + 22 + 21 + 31 + 25) / 5 = 24ms
-Quarkus: (18 + 19 + 19 + 21 + 20) / 5 = 19.4ms
-Spring Boot: (89 + 101 + 96 + 99 + 94) / 5 = 95.8ms
-----
-+
-Using Spring Boot's "initialization completed" number:
-+
-----
-Spring Boot: (44 + 49 + 46 + 47 + 48) / 5 = 46.8ms
+Micronaut: (19 + 19 + 19 + 21 + 21) / 5 = 19.8ms
+Quarkus: (17 + 19 + 19 + 18 + 19) / 5 = 18.4ms
+Spring Boot: (62 + 65 + 60 + 62 + 60) / 5 = 61.8ms
 ----
 
 == Memory Usage Comparison
@@ -368,9 +362,9 @@ Substitute `<executable>` as follows:
 |===
 |Framework | Executable | Megabytes before request | Megabytes after request
 
-|Micronaut | `app` | 29 | 62
-|Quarkus | `runner` | 20 | 34
-|Spring Boot | `demo` | 69 | 82
+|Micronaut | `app` | 27 | 78
+|Quarkus | `runner` | 20 | 32
+|Spring Boot | `demo` | 48 | 58
 |===
 
 IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Spring Boot, do you get faster startup times for Micronaut and Quarkus too?
