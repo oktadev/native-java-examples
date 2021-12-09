@@ -216,7 +216,7 @@ public class HelloResourceTest {
 
 . Test with access token:
 
-  http Authorization:"Bearer $TOKEN" :8080/hello
+  http :8080/hello Authorization:"Bearer $TOKEN"
 
 === Build a Native Quarkus App
 
@@ -307,19 +307,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 . Test your API with an access token.
 
-  http Authorization:"Bearer $TOKEN" :8080/hello
+  http :8080/hello Authorization:"Bearer $TOKEN"
 
 === Build a Native Spring Boot App
-
-. Enable HTTPS for native builds by adding a `@NativeHint` annotation to the `DemoApplication` class:
-+
-[source,java]
-----
-import org.springframework.nativex.hint.NativeHint;
-
-@NativeHint(options = "--enable-https")
-@SpringBootApplication
-----
 
 . Compile your Spring Boot app into a native executable using the `native` profile:
 
