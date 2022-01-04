@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.1</version>
+        <version>2.6.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
@@ -16,7 +16,7 @@
     <properties>
         <java.version>11</java.version>
         <repackage.classifier/>
-        <spring-native.version>0.11.0-RC1</spring-native.version>
+        <spring-native.version>0.11.1</spring-native.version>
     </properties>
     <dependencies>
         <dependency>
@@ -78,9 +78,9 @@
     </build>
     <repositories>
         <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
+            <id>spring-releases</id>
+            <name>Spring Releases</name>
+            <url>https://repo.spring.io/release</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -88,9 +88,9 @@
     </repositories>
     <pluginRepositories>
         <pluginRepository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
+            <id>spring-releases</id>
+            <name>Spring Releases</name>
+            <url>https://repo.spring.io/release</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -102,7 +102,7 @@
             <id>native</id>
             <properties>
                 <repackage.classifier>exec</repackage.classifier>
-                <native-buildtools.version>0.9.8</native-buildtools.version>
+                <native-buildtools.version>0.9.9</native-buildtools.version>
             </properties>
             <dependencies>
                 <dependency>
