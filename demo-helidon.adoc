@@ -35,7 +35,7 @@ toc::[]
 mvn -U archetype:generate -DinteractiveMode=false \
    -DarchetypeGroupId=io.helidon.archetypes \
    -DarchetypeArtifactId=helidon-quickstart-mp \
-   -DarchetypeVersion=2.4.0 \
+   -DarchetypeVersion=2.4.1 \
    -DgroupId=com.okta.rest \
    -DartifactId=helidon \
    -Dpackage=com.okta.rest
@@ -87,6 +87,7 @@ import java.util.Set;
 @LoginConfig(authMethod = "MP-JWT")
 @ApplicationScoped
 public class HelloApplication extends Application {
+
     @Override
     public Set<Class<?>> getClasses() {
         return Set.of(HelloResource.class);
@@ -224,7 +225,7 @@ You should get a 200 response with your email in it.
 +
 [source,shell]
 ----
-mvn io.quarkus:quarkus-maven-plugin:2.5.1.Final:create \
+mvn io.quarkus:quarkus-maven-plugin:2.6.1.Final:create \
     -DprojectGroupId=com.okta.rest \
     -DprojectArtifactId=quarkus \
     -DclassName="com.okta.rest.quarkus.HelloResource" \
@@ -300,7 +301,7 @@ public class HelloResourceTest {
 
 . Run your Quarkus app:
 
-  ./mvnw compile quarkus:dev
+  ./mvnw quarkus:dev
 
 . Test it from another terminal:
 
@@ -308,7 +309,7 @@ public class HelloResourceTest {
 
 . Test with access token:
 
-  http Authorization:"Bearer $TOKEN" :8080/hello
+  http :8080/hello Authorization:"Bearer $TOKEN"
 
 === Build a Native Quarkus App
 
@@ -331,7 +332,7 @@ public class HelloResourceTest {
 [source,shell]
 ----
 https start.spring.io/starter.zip \
-  bootVersion==2.6.1 \
+  bootVersion==2.6.2 \
   dependencies==web,oauth2-resource-server,native \
   packageName==com.okta.rest \
   name==spring-boot \
@@ -399,19 +400,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 . Test your API with an access token.
 
-  http Authorization:"Bearer $TOKEN" :8080/hello
+  http :8080/hello Authorization:"Bearer $TOKEN"
 
 === Build a Native Spring Boot App
-
-. Enable HTTPS for native builds by adding a `@NativeHint` annotation to the `DemoApplication` class:
-+
-[source,java]
-----
-import org.springframework.nativex.hint.NativeHint;
-
-@NativeHint(options = "--enable-https")
-@SpringBootApplication
-----
 
 . Compile your Spring Boot app into a native executable using the `native` profile:
 
@@ -434,10 +425,10 @@ TIP: To build a native app and a Docker container, use the Spring Boot Maven plu
 . Write each time down, add them up, and divide by five for the average. For example:
 +
 ----
-Micronaut: (20 + 19 + 21 + 22 + 20) / 5 = 20.4
-Quarkus: (18 + 16 + 16 + 18 + 17) / 5 = 17
-Spring Boot: (59 + 59 + 58 + 59 + 61) / 5 = 59.2
-Helidon: (288 + 495 + 280 + 291 + 540) / 5 = 378.8
+Helidon: (53 + 53 + 55 + 53 + 54) / 5 = 53.6
+Micronaut: (29 + 33 + 31 + 30 + 33) / 5 = 31.2
+Quarkus: (21 + 20 + 17 + 17 + 20) / 5 = 19
+Spring Boot: (57 + 57 + 55 + 61 + 66) / 5 = 59.2
 ----
 
 == Memory Usage Comparison
@@ -453,12 +444,12 @@ Substitute `<executable>` as follows:
 
 .Native Java memory used in megabytes
 |===
-|Framework | Executable | Megabytes before request | Megabytes after request
+|Framework | Executable | Megabytes before request | Megabytes after request| Megabytes after 5 requests
 
-|Micronaut | `app` | 27 | 78
-|Quarkus | `runner` | 20 | 32
-|Spring Boot | `demo` | 48 | 58
-|Helidon | `helidon` | 74 | 110
+|Helidon | `helidon` | 66 | 127 | 259
+|Micronaut | `app` | 28 | 44 | 55
+|Quarkus | `runner` | 20 | 32 | 34
+|Spring Boot | `demo` | 47 | 62 | 63
 |===
 
 IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Helidon, do you get faster startup times for Micronaut and Quarkus too?
