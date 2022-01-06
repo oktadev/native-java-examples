@@ -2,6 +2,8 @@
 
 This repository contains example OAuth 2.0 resource servers built with Micronaut, Quarkus, and Spring Boot. If you'd like to see how they were built, please read, [Build Native Java Apps with Micronaut, Quarkus, and Spring Boot][blog].
 
+This project also contains a Helidon example. You can read about how it was built, and how it compares in [Build REST APIs and Native Java Apps with Helidon][blog-helidon].
+
 **Prerequisites:** [Java 17 with GraalVM](https://sdkman.io/), [HTTPie](https://httpie.io/), and [Docker](https://docs.docker.com/engine/install/) (optional).
 
 * [Getting Started](#getting-started)
@@ -40,12 +42,14 @@ Change the following files for each framework to match your Okta domain:
 - Micronaut: `micronaut/src/main/resources/application.yml`
 - Quarkus: `quarkus/src/main/resources/application.properties`
 - Spring Boot: `spring-boot/src/main/resources/application.properties`
+- Helidon: `helidon/src/main/resources/META-INF/microprofile-config.properties`
 
 You can start each app using Maven. Note that you will only be able to start one at a time since they all run on port 8080.
 
 - Micronaut: `./mvnw mn:run`
 - Quarkus: `./mvnw quarkus:dev`
 - Spring Boot: `./mvnw spring-boot:run`
+- Helidon: `mvn package && java -jar target/helidon.jar`
 
 Then, you can test them with an access token and HTTPie.
 
@@ -74,14 +78,16 @@ You can also build and run each example as a native app.
 - Micronaut: `./mvnw package -Dpackaging=native-image`
 - Quarkus: `./mvnw package -Pnative`
 - Spring Boot: `./mvnw spring-boot:build-image` (or `./mvnw package -Pnative` if you don't have Docker installed)
+- Helidon: `mvn package -Pnative-image`
 
 Then, start each app as a native executable.
 
 - Micronaut: `./target/app`
 - Quarkus: `./target/quarkus-1.0.0-SNAPSHOT-runner`
 - Spring Boot: `docker run -p 8080:8080 demo:0.0.1-SNAPSHOT` (or `./target/demo` if you didn't use Docker)
+- Helidon: `./target/helidon`
 
-Please read [Build Native Java Apps with Micronaut, Quarkus, and Spring Boot][blog] for performance numbers and analysis.
+Please read [Build Native Java Apps with Micronaut, Quarkus, and Spring Boot][blog] for performance numbers and analysis. To see how Helidon compares, see [Build REST APIs and Native Java Apps with Helidon][blog-helidon].
 
 ## Links
 
@@ -90,6 +96,7 @@ This example uses the following open source libraries:
 * [Micronaut](https://micronaut.io)
 * [Quarkus](https://quarkus.io)
 * [Spring Boot](https://spring.io/projects/spring-boot)
+* [Helidon](https://helidon.io)
 
 ## Help
 
@@ -100,3 +107,4 @@ Please post any questions as comments on [this example's blog post][blog], or on
 Apache 2.0, see [LICENSE](LICENSE).
 
 [blog]: https://developer.okta.com/blog/2021/06/18/native-java-framework-comparison
+[blog-helidon]: https://developer.okta.com/blog/2022/01/06/native-java-helidon
