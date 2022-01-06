@@ -2,7 +2,7 @@
 
 This repository contains example OAuth 2.0 resource servers built with Micronaut, Quarkus, and Spring Boot. If you'd like to see how they were built, please read, [Build Native Java Apps with Micronaut, Quarkus, and Spring Boot][blog].
 
-It also contains a Helidon example. You can read about how it was built, and how it compares in [Build REST APIs and Native Java Apps with Helidon][blog-helidon].
+This project also contains a Helidon example. You can read about how it was built, and how it compares in [Build REST APIs and Native Java Apps with Helidon][blog-helidon].
 
 **Prerequisites:** [Java 17 with GraalVM](https://sdkman.io/), [HTTPie](https://httpie.io/), and [Docker](https://docs.docker.com/engine/install/) (optional).
 
@@ -87,7 +87,7 @@ Then, start each app as a native executable.
 - Spring Boot: `docker run -p 8080:8080 demo:0.0.1-SNAPSHOT` (or `./target/demo` if you didn't use Docker)
 - Helidon: `./target/helidon`
 
-Please read [Build Native Java Apps with Micronaut, Quarkus, and Spring Boot][blog] for performance numbers and analysis.
+Please read [Build Native Java Apps with Micronaut, Quarkus, and Spring Boot][blog] for performance numbers and analysis. To see how Helidon compares, see [Build REST APIs and Native Java Apps with Helidon][blog-helidon].
 
 ## Links
 
@@ -107,4 +107,4 @@ Please post any questions as comments on [this example's blog post][blog], or on
 Apache 2.0, see [LICENSE](LICENSE).
 
 [blog]: https://developer.okta.com/blog/2021/06/18/native-java-framework-comparison
-[blog-helidon]: https://developer.okta.com/blog/TBD
+[blog-helidon]: https://developer.okta.com/blog/2022/01/06/native-java-helidon
