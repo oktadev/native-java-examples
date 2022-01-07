@@ -1,8 +1,8 @@
 # Native Java Examples: Micronaut, Quarkus, and Spring Boot
 
-This repository contains example OAuth 2.0 resource servers built with Micronaut, Quarkus, and Spring Boot. If you'd like to see how they were built, please read, [Build Native Java Apps with Micronaut, Quarkus, and Spring Boot][blog].
+This repository contains example OAuth 2.0 resource servers built with Micronaut, Quarkus, and Spring Boot. If you'd like to see how they were built, please read [Build Native Java Apps with Micronaut, Quarkus, and Spring Boot][blog].
 
-This project also contains a Helidon example. You can read about how it was built, and how it compares in [Build REST APIs and Native Java Apps with Helidon][blog-helidon].
+This project also contains a Helidon example. You can read about how it was built and how it compares in [Build REST APIs and Native Java Apps with Helidon][blog-helidon].
 
 **Prerequisites:** [Java 17 with GraalVM](https://sdkman.io/), [HTTPie](https://httpie.io/), and [Docker](https://docs.docker.com/engine/install/) (optional).
 
