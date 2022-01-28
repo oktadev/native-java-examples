@@ -46,7 +46,7 @@ Change the following files for each framework to match your Okta domain:
 
 You can start each app using Maven. Note that you will only be able to start one at a time since they all run on port 8080.
 
-- Micronaut: `./mvnw mn:run`
+- Micronaut: `./gradlew run`
 - Quarkus: `./mvnw quarkus:dev`
 - Spring Boot: `./mvnw spring-boot:run`
 - Helidon: `mvn package && java -jar target/helidon.jar`
@@ -75,14 +75,14 @@ You should see your email address printed to your terminal.
 
 You can also build and run each example as a native app.
 
-- Micronaut: `./mvnw package -Dpackaging=native-image`
+- Micronaut: `./gradlew nativeCompile`
 - Quarkus: `./mvnw package -Pnative`
 - Spring Boot: `./mvnw spring-boot:build-image` (or `./mvnw package -Pnative` if you don't have Docker installed)
 - Helidon: `mvn package -Pnative-image`
 
 Then, start each app as a native executable.
 
-- Micronaut: `./target/app`
+- Micronaut: `./gradlew nativeRun`
 - Quarkus: `./target/quarkus-1.0.0-SNAPSHOT-runner`
 - Spring Boot: `docker run -p 8080:8080 demo:0.0.1-SNAPSHOT` (or `./target/demo` if you didn't use Docker)
 - Helidon: `./target/helidon`
