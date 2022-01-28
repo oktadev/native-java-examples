@@ -1,6 +1,7 @@
 plugins {
     id("com.github.johnrengelman.shadow") version "7.1.1"
     id("io.micronaut.application") version "3.2.0"
+    id("io.micronaut.aot") version "3.2.0"
 }
 
 version = "0.1"
@@ -18,6 +19,17 @@ micronaut {
         incremental(true)
         annotations("com.okta.rest.*")
     }
+    
+    aot {
+        version = "1.0.0-M7"
+        cacheEnvironment = true
+        optimizeServiceLoading = true
+        optimizeClassLoading = true
+        convertYamlToJava = true
+        precomputeOperations = true
+        deduceEnvironment = true
+        replaceLogbackXml = true
+    }
 }
 
 
@@ -31,6 +43,9 @@ dependencies {
     implementation("io.micronaut:micronaut-validation")
     implementation("io.micronaut.security:micronaut-security-jwt")
 
+    // For Micronaut AOT logback conversion
+    aotPlugins("ch.qos.logback:logback-classic:1.3.0-alpha12")
+    aotPlugins("org.fusesource.jansi:jansi:1.18")
 }
 
 
