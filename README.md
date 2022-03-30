@@ -33,7 +33,7 @@ gu install native-image
 
 Next, you'll need a free Okta developer account. Install the [Okta CLI](https://cli.okta.com/) and run `okta register` to sign up for a new account. If you already have an account, run `okta login`. Then, run `okta apps create`. Select the default app name, or change it as you see fit. Choose **Single-Page App** and press **Enter**.
 
-Use `https://oidcdebugger.com/debug` for the Redirect URI and set the Logout Redirect URI to `https://oidcdebugger.com`.
+Use `https://oidcdebugger.com/debug` for the Redirect URI and accept the default Logout Redirect URI of `https://oidcdebugger.com/`.
 
 Take note of the `clientId` and `issuer` values. You'll need those to get an access token and to configure each framework for JWT authentication.
 
@@ -53,7 +53,7 @@ You can start each app using Maven. Note that you will only be able to start one
 
 Then, you can test them with an access token and HTTPie.
 
-You can generate an acces token using [OpenID Connect Debugger](https://oidcdebugger.com/). First, you must configure your application on Okta to use OpenID Connect's implicit flow.
+You can generate an access token using [OpenID Connect Debugger](https://oidcdebugger.com/). First, you must configure your application on Okta to use OpenID Connect's implicit flow.
 
 Run `okta login` and open the resulting URL in your browser. Go to the **Applications** section and select the application you created with the CLI. Edit its General Settings and add **Implicit (Hybrid)** as an allowed grant type, with access token enabled. Click **Save** and copy the client ID for the next step.
 
