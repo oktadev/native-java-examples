@@ -1,4 +1,4 @@
-# Native Java Examples: Micronaut, Quarkus, and Spring Boot
+# Native Java Examples: Micronaut, Quarkus, Spring Boot, and Helidon
 
 This repository contains example OAuth 2.0 resource servers built with Micronaut, Quarkus, and Spring Boot. If you'd like to see how they were built, please read [Build Native Java Apps with Micronaut, Quarkus, and Spring Boot][blog].
 
@@ -22,7 +22,7 @@ git clone https://github.com/oktadev/native-java-examples.git
 You will need a JDK with GraalVM and its native-image compiler. Using [SDKMAN](https://sdkman.io), run the following command and set it as the default:
 
 ```bash
-sdk install java 21.3.0.r17-grl
+sdk install java 22.0.0.2.r17-grl
 ```
 
 Add the native extension to the JDK:
