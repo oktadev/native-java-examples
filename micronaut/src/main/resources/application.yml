@@ -7,8 +7,12 @@ micronaut:
       jwt:
         enabled: true
         claims-validators:
-          issuer: https://dev-2530788.okta.com/oauth2/default
+          issuer: https://dev-17700857.okta.com/oauth2/default
         signatures:
           jwks:
             okta:
-              url: https://dev-2530788.okta.com/oauth2/default/v1/keys
+              url: https://dev-17700857.okta.com/oauth2/default/v1/keys
+netty:
+  default:
+    allocator:
+      max-order: 3
