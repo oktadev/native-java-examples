@@ -18,7 +18,10 @@
     <jdk.version>11</jdk.version>
     <release.version>11</release.version>
     <micronaut.version>3.4.1</micronaut.version>
-    <micronaut.aot.packageName>com.okta.rest</micronaut.aot.packageName>
+    <micronaut.aot.packageName>com.okta.rest.aot</micronaut.aot.packageName>
+    <micronaut.aot.enabled>true</micronaut.aot.enabled>
+    <micronaut.aot.version>1.0.2</micronaut.aot.version>
+    <micronaut-maven-plugin.version>3.2.2-SNAPSHOT</micronaut-maven-plugin.version>
     <exec.mainClass>com.okta.rest.Application</exec.mainClass>
     <micronaut.runtime>netty</micronaut.runtime>
   </properties>
@@ -98,6 +101,20 @@
       <plugin>
         <groupId>io.micronaut.build</groupId>
         <artifactId>micronaut-maven-plugin</artifactId>
+        <configuration>
+          <aotDependencies>
+            <dependency>
+              <groupId>ch.qos.logback</groupId>
+              <artifactId>logback-classic</artifactId>
+              <version>1.3.0-alpha14</version>
+            </dependency>
+            <dependency>
+              <groupId>org.fusesource.jansi</groupId>
+              <artifactId>jansi</artifactId>
+              <version>1.18</version>
+            </dependency>
+          </aotDependencies>
+        </configuration>
       </plugin>
 
       <plugin>
