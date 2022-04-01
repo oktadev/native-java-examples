@@ -15,7 +15,6 @@ import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 public class HelloResource {
 
     @GET
-    @Path("/")
     @Produces(TEXT_PLAIN)
     public String hello(@Context SecurityContext context) {
         Optional<Principal> userPrincipal = context.userPrincipal();
