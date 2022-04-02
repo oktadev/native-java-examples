@@ -1,6 +1,7 @@
 :experimental:
 :commandkey: &#8984;
 :toc: macro
+:source-highlighter: highlight.js
 
 = Build a Native Java REST API with Helidon and OAuth 2.0
 
@@ -25,7 +26,6 @@ toc::[]
 . Add the native extension to the JDK:
 
   gu install native-image
-  #todo: test to make sure ^^ is needed
 
 == Generate an OAuth 2.0 Access Token
 

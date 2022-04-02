@@ -1,6 +1,7 @@
 :experimental:
 :commandkey: &#8984;
 :toc: macro
+:source-highlighter: highlight.js
 
 = Build a Native Java REST API with Micronaut and OAuth 2.0
 
