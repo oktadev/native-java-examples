@@ -3,9 +3,9 @@
 :toc: macro
 :source-highlighter: highlight.js
 
-= Build a Native Java REST API with Helidon and OAuth 2.0
+= Build a Native Java REST API with Spring Boot and OAuth 2.0
 
-In this demo, I'll show how to create a secure REST API and native image with Helidon. You'll see how to run a secure, OAuth 2.0-protected, Java REST API that allows JWT authentication. Then, I'll compare its performance with Micronaut, Quarkus, and Spring Boot.
+In this demo, I'll show how to create a secure REST API and native image with Spring Boot. You'll see how to run a secure, OAuth 2.0-protected, Java REST API that allows JWT authentication. Then, I'll compare its performance with Micronaut, Quarkus, and Helidon.
 
 **Prerequisites:**
 
@@ -43,22 +43,22 @@ toc::[]
 
   TOKEN=eyJraWQiOiJYa2pXdjMzTDRBYU1ZSzNGM...
 
-== Construct a Java API with Helidon
+== Start a Spring Boot Java API
 
-. Create a Helidon app with OAuth 2.0 support:
+. Create a Spring Boot app with OAuth 2.0 support:
 +
 [source,shell]
 ----
-mvn -U archetype:generate -DinteractiveMode=false \
-   -DarchetypeGroupId=io.helidon.archetypes \
-   -DarchetypeArtifactId=helidon-quickstart-mp \
-   -DarchetypeVersion=2.4.2 \
-   -DgroupId=com.okta.rest \
-   -DartifactId=helidon \
-   -Dpackage=com.okta.rest
+https start.spring.io/starter.zip \
+  bootVersion==2.6.6 \
+  dependencies==web,oauth2-resource-server,native \
+  packageName==com.okta.rest \
+  name==spring-boot \
+  type==maven-project \
+  baseDir==spring-boot | tar -xzvf -
 ----
 
-. Add a `HelloController` class that returns the user's information: [`h-hello`]
+. Add a `HelloController` class that returns the user's information: [`sb-hello`]
 +
 [source,java]
 ----
@@ -80,57 +80,57 @@ public class HelloController {
 }
 ----
 
-. Add your Okta endpoints to `src/main/resources/META-INF/microprofile-config.properties`.
+. Configure the app to be an OAuth 2.0 resource server by adding the issuer to `application.properties`.
 +
 [source,properties]
 ----
-mp.jwt.verify.publickey.location=https://{yourOktaDomain}/oauth2/default/v1/keys
-mp.jwt.verify.issuer=https://{yourOktaDomain}/oauth2/default
+spring.security.oauth2.resourceserver.jwt.issuer-uri=https://{yourOktaDomain}/oauth2/default
 ----
 
-. Add a `HelloApplication` class in `src/main/java/com/okta/rest` to register your resource and configure JWT authentication: [`h-app`]
+. Add a `SecurityConfiguration` class to configure JWT authentication: [`securityconfig`]
 +
 [source,java]
 ----
 package com.okta.rest;
 
-import com.okta.rest.controller.HelloResource;
-import org.eclipse.microprofile.auth.LoginConfig;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.ws.rs.core.Application;
-import java.util.Set;
-
-@LoginConfig(authMethod = "MP-JWT")
-@ApplicationScoped
-public class HelloApplication extends Application {
+@EnableWebSecurity
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
-    public Set<Class<?>> getClasses() {
-        return Set.of(HelloResource.class);
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .authorizeRequests(request -> request.anyRequest().authenticated())
+            .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
     }
 }
 ----
 
-=== Run and Test Your Helidon API with HTTPie
+=== Run and Test Your Spring Boot API with HTTPie
 
 . Start your app from your IDE or using a terminal:
 
-  mvn package && java -jar ./target/helidon
+  ./mvnw spring-boot:run
 
 . Test your API with an access token.
 
-  http Authorization:"Bearer $TOKEN" :8080/hello
+  http :8080/hello Authorization:"Bearer $TOKEN"
 
-=== Build a native Helidon app with GraalVM
+=== Build a Native Spring Boot App
 
-. Compile your Helidon app into a native executable using the `native-image` profile:
+. Compile your Spring Boot app into a native executable using the `native` profile:
 
-  mvn package -Pnative-image
+  ./mvnw package -Pnative
++
+TIP: To build a native app and a Docker container, use the Spring Boot Maven plugin and `./mvnw spring-boot:build-image`.
 
-. Start your Helidon app:
+. Start your Spring Boot app:
 
-  ./target/helidon
+  ./target/demo
 
 . Test your API with an access token.
 
@@ -182,8 +182,8 @@ Substitute `<executable>` as follows:
 
 IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Helidon, do you get faster startup times for Micronaut and Quarkus too?
 
-== Native Java with Helidon FTW!
+== Native Java with Spring Boot FTW!
 
 🚀 Find the code on GitHub: https://github.com/oktadev/native-java-examples[@oktadev/native-java-examples]
 
-👀 Read the blog post: https://developer.okta.com/blog/2022/01/06/native-java-helidon[Build REST APIs and Native Java Apps with Helidon]
+👀 Read the blog post: https://developer.okta.com/blog/2021/06/18/native-java-framework-comparison[Build Native Java Apps with Micronaut, Quarkus, and Spring Boot]
