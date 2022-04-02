@@ -4,7 +4,7 @@
 
 = Build a Native Java REST API with Helidon and OAuth 2.0
 
-In this demo, I'll show how to create secure REST APIs and native images with Helidon. You'll see how to run a secure, OAuth 2.0-protected, Java REST API that allows JWT authentication. Then, I'll compare its performance with Micronaut, Quarkus, and Spring Boot.
+In this demo, I'll show how to create a secure REST API and native image with Helidon. You'll see how to run a secure, OAuth 2.0-protected, Java REST API that allows JWT authentication. Then, I'll compare its performance with Micronaut, Quarkus, and Spring Boot.
 
 **Prerequisites:**
 
