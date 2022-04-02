@@ -159,39 +159,6 @@ Spring Boot: (53 + 56 + 55 + 55 + 54) / 5 = 54.6
 |Spring Boot | `./spring-boot/target/demo` | 54.6
 |===
 
-The chart below should help you visualize this comparison.
-
-++++
-<script src="https://www.gstatic.com/charts/loader.js"></script>
-<div id="startup-times"></div>
-<script>
-google.charts.load('current', {packages: ['corechart', 'bar']});
-google.charts.setOnLoadCallback(drawChart);
-function drawChart() {
-  var data = google.visualization.arrayToDataTable([
-    ['Framework', 'Milliseconds to start', { role: 'style' }],
-    ['Helidon', 39.4, 'orange'],
-    ['Micronaut', 35, 'blue'],
-    ['Quarkus', 18.6, 'red'],
-    ['Spring Boot', 54.6, 'green']
-  ]);
-  var options = {
-    title: 'Startup times of native Java frameworks',
-    chartArea: {width: '50%'},
-    hAxis: {
-      title: 'Milliseconds',
-      minValue: 0
-    },
-    vAxis: {
-      title: 'Java Framework'
-    }
-  };
-  var chart = new google.visualization.BarChart(document.getElementById('startup-times'));
-  chart.draw(data, options);
-}
-</script>
-++++
-
 == Memory Usage Comparison
 
 Test the memory usage in MB of each app using the command below. Make sure to send an HTTP request to each one before measuring.
@@ -212,36 +179,6 @@ Substitute `<executable>` as follows:
 |Quarkus | `quarkus` | 20 | 31 | 33
 |Spring Boot | `demo` | 46 | 57 | 57
 |===
-
-++++
-<div id="memory-usage"></div>
-<script>
-google.charts.load('current', {packages: ['corechart', 'bar']});
-google.charts.setOnLoadCallback(drawChart);
-function drawChart() {
-  var data = google.visualization.arrayToDataTable([
-    ['Framework', 'Memory usage (MB)', { role: 'style' }],
-    ['Helidon', 63, 'orange'],
-    ['Micronaut', 54, 'blue'],
-    ['Quarkus', 33, 'red'],
-    ['Spring Boot', 57, 'green']
-  ]);
-  var options = {
-    title: 'Memory usage of native Java frameworks',
-    chartArea: {width: '50%'},
-    hAxis: {
-      title: 'Megabytes',
-      minValue: 0
-    },
-    vAxis: {
-      title: 'Java Framework'
-    }
-  };
-  var chart = new google.visualization.BarChart(document.getElementById('memory-usage'));
-  chart.draw(data, options);
-}
-</script>
-++++
 
 IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Helidon, do you get faster startup times for Micronaut and Quarkus too?
 
