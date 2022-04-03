@@ -401,4 +401,7 @@ IMPORTANT: If you disagree with these numbers and think X framework should be fa
 
 🚀 Find the code on GitHub: https://github.com/oktadev/native-java-examples[@oktadev/native-java-examples]
 
-📖 Read the blog post: https://developer.okta.com/blog/2021/06/18/native-java-framework-comparison[Build Native Java Apps with Micronaut, Quarkus, and Spring Boot]
+📖 Read the blog posts:
+
+- https://developer.okta.com/blog/2021/06/18/native-java-framework-comparison[Build Native Java Apps with Micronaut, Quarkus, and Spring Boot]
+- https://developer.okta.com/blog/2022/01/06/native-java-helidon[Build REST APIs and Native Java Apps with Helidon]
