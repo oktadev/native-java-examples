@@ -193,7 +193,7 @@ Substitute `<executable>` as follows:
 |Spring Boot | `demo` | 46 | 57 | 57
 |===
 
-IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Helidon, do you get faster startup times for Micronaut and Quarkus too?
+IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Quarkus, do you get faster startup times for Helidon, Micronaut, and Spring Boot too?
 
 == Native Java with Quarkus FTW!
 
