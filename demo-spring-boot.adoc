@@ -58,6 +58,31 @@ https start.spring.io/starter.zip \
   baseDir==spring-boot | tar -xzvf -
 ----
 
+. Modify `pom.xml` to use `tomcat-embed-programmatic` instead of the default Tomcat.
++
+[source,xml]
+----
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+    <exclusions>
+        <exclusion>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-websocket</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+<dependency>
+    <groupId>org.apache.tomcat.experimental</groupId>
+    <artifactId>tomcat-embed-programmatic</artifactId>
+    <version>${tomcat.version}</version>
+</dependency>
+----
+
 . Add a `HelloController` class that returns the user's information: [`sb-hello`]
 +
 [source,java]
@@ -180,7 +205,7 @@ Substitute `<executable>` as follows:
 |Spring Boot | `demo` | 46 | 57 | 57
 |===
 
-IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Helidon, do you get faster startup times for Micronaut and Quarkus too?
+IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Spring Boot, do you get faster startup times for Helidon, Micronaut, and Quarkus too?
 
 == Native Java with Spring Boot FTW!
 

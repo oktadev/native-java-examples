@@ -57,6 +57,18 @@ mvn -U archetype:generate -DinteractiveMode=false \
    -DartifactId=helidon \
    -Dpackage=com.okta.rest
 ----
++
+TIP: You can also install the https://helidon.io/docs/v2/#/about/05_cli[Helidon's CLI] and run `helidon init`.
+
+. Add MicroProfile JWT support in `pom.xml`:
++
+[source,xml]
+----
+<dependency>
+    <groupId>io.helidon.microprofile.jwt</groupId>
+    <artifactId>helidon-microprofile-jwt-auth</artifactId>
+</dependency>
+----
 
 . Add a `HelloController` class that returns the user's information: [`h-hello`]
 +
