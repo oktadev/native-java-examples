@@ -20,7 +20,7 @@
     <micronaut.version>3.4.1</micronaut.version>
     <micronaut.aot.packageName>com.okta.rest.aot</micronaut.aot.packageName>
     <micronaut.aot.enabled>true</micronaut.aot.enabled>
-    <micronaut.aot.version>1.0.2</micronaut.aot.version>
+    <micronaut.aot.version>1.0.3</micronaut.aot.version>
     <micronaut-maven-plugin.version>3.2.3-SNAPSHOT</micronaut-maven-plugin.version>
     <exec.mainClass>com.okta.rest.Application</exec.mainClass>
     <micronaut.runtime>netty</micronaut.runtime>
