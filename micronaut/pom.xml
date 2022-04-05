@@ -21,7 +21,7 @@
     <micronaut.aot.packageName>com.okta.rest.aot</micronaut.aot.packageName>
     <micronaut.aot.enabled>true</micronaut.aot.enabled>
     <micronaut.aot.version>1.0.2</micronaut.aot.version>
-    <micronaut-maven-plugin.version>3.2.2</micronaut-maven-plugin.version>
+    <micronaut-maven-plugin.version>3.2.3-SNAPSHOT</micronaut-maven-plugin.version>
     <exec.mainClass>com.okta.rest.Application</exec.mainClass>
     <micronaut.runtime>netty</micronaut.runtime>
   </properties>
@@ -102,6 +102,7 @@
         <groupId>io.micronaut.build</groupId>
         <artifactId>micronaut-maven-plugin</artifactId>
         <configuration>
+          <configFile>aot-${packaging}.properties</configFile>
           <aotDependencies>
             <dependency>
               <groupId>ch.qos.logback</groupId>
