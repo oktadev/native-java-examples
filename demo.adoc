@@ -34,6 +34,8 @@ toc::[]
 
 . Use `https://oidcdebugger.com/debug` for the Redirect URI and set the Logout Redirect URI to `https://oidcdebugger.com`.
 
+. Next, configure your application on Okta to use OpenID Connect's implicit flow. Run `okta login` and open the resulting URL in your browser. Log in and go to the **Applications** section. Select the application you created with the CLI. Edit its General Settings and add **Implicit (Hybrid)** as an allowed grant type, with access token enabled. Click **Save** and copy the client ID for the next step.
+
 . Navigate to the https://oidcdebugger.com/[OpenID Connect Debugger] website. Fill in your client ID, and use `https://{yourOktaDomain}/oauth2/default/v1/authorize` for the Authorize URI. The `state` field must be filled but can contain any characters. Select **token** for the response type.
 
 . Click **Send Request** to continue.
