@@ -25,12 +25,6 @@ You will need a JDK with GraalVM and its native-image compiler. Using [SDKMAN](h
 sdk install java 22.0.0.2.r17-grl
 ```
 
-Add the native extension to the JDK:
-
-```bash
-gu install native-image
-```
-
 Next, you'll need a free Okta developer account. Install the [Okta CLI](https://cli.okta.com/) and run `okta register` to sign up for a new account. If you already have an account, run `okta login`. Then, run `okta apps create`. Select the default app name, or change it as you see fit. Choose **Single-Page App** and press **Enter**.
 
 Use `https://oidcdebugger.com/debug` for the Redirect URI and accept the default Logout Redirect URI of `https://oidcdebugger.com/`.
