@@ -69,7 +69,7 @@ You should see your email address printed to your terminal.
 
 You can also build and run each example as a native app.
 
-- Micronaut: `./mvnw package -Dpackaging=native-image`
+- Micronaut: `./mvnw clean package -Dpackaging=native-image`
 - Quarkus: `./mvnw package -Pnative`
 - Spring Boot: `./mvnw spring-boot:build-image` (or `./mvnw package -Pnative` if you don't have Docker installed)
 - Helidon: `mvn package -Pnative-image`
