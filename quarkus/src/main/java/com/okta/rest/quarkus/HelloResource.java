@@ -14,7 +14,6 @@ import java.security.Principal;
 public class HelloResource {
 
     @GET
-    @Path("/")
     @Authenticated
     @Produces(MediaType.TEXT_PLAIN)
     public String hello(@Context SecurityContext context) {
