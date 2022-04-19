@@ -71,7 +71,7 @@ You can also build and run each example as a native app.
 
 - Micronaut: `./mvnw clean package -Dpackaging=native-image`
 - Quarkus: `./mvnw package -Pnative`
-- Spring Boot: `./mvnw spring-boot:build-image` (or `./mvnw package -Pnative` if you don't have Docker installed)
+- Spring Boot: `./mvnw package -Pnative` (if you'd rather use Docker: `./mvnw spring-boot:build-image`)
 - Helidon: `mvn package -Pnative-image`
 
 Then, start each app as a native executable.
