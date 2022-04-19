@@ -3,9 +3,9 @@
 :toc: macro
 :source-highlighter: highlight.js
 
-= Build a Native Java REST API with Helidon and OAuth 2.0
+= Build a Native Java REST API with Micronaut and OAuth 2.0
 
-In this demo, I'll show how to create a secure REST API and native image with Helidon. You'll see how to run a secure, OAuth 2.0-protected, Java REST API that allows JWT authentication. Then, I'll compare its performance with Micronaut, Quarkus, and Spring Boot.
+In this demo, I'll show how to create a secure REST API and native image with Micronaut. You'll see how to run a secure, OAuth 2.0-protected, Java REST API that allows JWT authentication. Then, I'll compare its performance with Quarkus, Spring Boot, and Helidon.
 
 **Prerequisites:**
 
@@ -45,48 +45,38 @@ toc::[]
 
   TOKEN=eyJraWQiOiJYa2pXdjMzTDRBYU1ZSzNGM...
 
-== Construct a Java API with Helidon
+== Make a Micronaut Java API
 
-. Create a Helidon app with OAuth 2.0 support:
+. Use SDKMAN to install Micronaut's CLI and create an app:
 +
 [source,shell]
 ----
-mvn -U archetype:generate -DinteractiveMode=false \
-   -DarchetypeGroupId=io.helidon.archetypes \
-   -DarchetypeArtifactId=helidon-quickstart-mp \
-   -DarchetypeVersion=2.4.2 \
-   -DgroupId=com.okta.rest \
-   -DartifactId=helidon \
-   -Dpackage=com.okta.rest
-----
-+
-TIP: You can also install the https://helidon.io/docs/v2/#/about/05_cli[Helidon's CLI] and run `helidon init`.
-
-. Add MicroProfile JWT support in `pom.xml`:
-+
-[source,xml]
-----
-<dependency>
-    <groupId>io.helidon.microprofile.jwt</groupId>
-    <artifactId>helidon-microprofile-jwt-auth</artifactId>
-</dependency>
+sdk install micronaut
+mn create-app com.okta.rest.app --build maven -f security-jwt -f micronaut-aot
+mv app micronaut
 ----
 
-. Add a `HelloController` class that returns the user's information: [`h-hello`]
+. Create `controller/HelloController.java`: [`mn-hello`]
 +
 [source,java]
 ----
 package com.okta.rest.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import io.micronaut.http.MediaType;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.Produces;
+import io.micronaut.security.annotation.Secured;
+import io.micronaut.security.rules.SecurityRule;
 
 import java.security.Principal;
 
-@RestController
+@Controller("/hello")
 public class HelloController {
 
-    @GetMapping("/hello")
+    @Get
+    @Secured(SecurityRule.IS_AUTHENTICATED)
+    @Produces(MediaType.TEXT_PLAIN)
     public String hello(Principal principal) {
         return "Hello, " + principal.getName() + "!";
     }
@@ -94,59 +84,48 @@ public class HelloController {
 }
 ----
 
-. Add your Okta endpoints to `src/main/resources/META-INF/microprofile-config.properties`.
+. Enable and configure JWT security in `src/main/resources/application.yml`: [`mn-security-config`]
 +
-[source,properties]
+[source,yaml]
 ----
-mp.jwt.verify.publickey.location=https://{yourOktaDomain}/oauth2/default/v1/keys
-mp.jwt.verify.issuer=https://{yourOktaDomain}/oauth2/default
+micronaut:
+  ...
+  security:
+    enabled: true
+    token:
+      jwt:
+        enabled: true
+        claims-validators:
+          issuer: https://{yourOktaDomain}/oauth2/default
+        signatures:
+          jwks:
+            okta:
+              url: https://{yourOktaDomain}/oauth2/default/v1/keys
 ----
 
-. Add a `HelloApplication` class in `src/main/java/com/okta/rest` to register your resource and configure JWT authentication: [`h-app`]
+=== Run and Test Your Micronaut API with HTTPie
+
+. Start your app:
+
+  ./mvnw mn:run
+
+. Use HTTPie to pass the JWT in as a bearer token in the `Authorization` header:
+
+  http :8080/hello Authorization:"Bearer $TOKEN"
 +
-[source,java]
-----
-package com.okta.rest;
+You should get a 200 response with your email in it.
 
-import com.okta.rest.controller.HelloResource;
-import org.eclipse.microprofile.auth.LoginConfig;
+=== Build a Native Micronaut App
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.ws.rs.core.Application;
-import java.util.Set;
+. Compile your Micronaut app into a native binary:
 
-@LoginConfig(authMethod = "MP-JWT")
-@ApplicationScoped
-public class HelloApplication extends Application {
+  ./mvnw package -Dpackaging=native-image
 
-    @Override
-    public Set<Class<?>> getClasses() {
-        return Set.of(HelloResource.class);
-    }
-}
-----
+. Start your Micronaut app:
 
-=== Run and Test Your Helidon API with HTTPie
+  ./target/app
 
-. Start your app from your IDE or using a terminal:
-
-  mvn package && java -jar ./target/helidon
-
-. Test your API with an access token.
-
-  http Authorization:"Bearer $TOKEN" :8080/hello
-
-=== Build a native Helidon app with GraalVM
-
-. Compile your Helidon app into a native executable using the `native-image` profile:
-
-  mvn package -Pnative-image
-
-. Start your Helidon app:
-
-  ./target/helidon
-
-. Test your API with an access token.
+. Test it with HTTPie and an access token. You may have to generate a new JWT with oidcdebugger.com if yours has expired.
 
   http :8080/hello Authorization:"Bearer $TOKEN"
 
@@ -194,10 +173,10 @@ Substitute `<executable>` as follows:
 |Spring Boot | `demo` | 46 | 57 | 57
 |===
 
-IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Helidon, do you get faster startup times for Micronaut and Quarkus too?
+IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Micronaut, do you get faster startup times for Helidon, Quarkus, and Spring Boot too?
 
-== Native Java with Helidon FTW!
+== Native Java with Micronaut FTW!
 
 🚀 Find the code on GitHub: https://github.com/oktadev/native-java-examples[@oktadev/native-java-examples]
 
-👀 Read the blog post: https://developer.okta.com/blog/2022/01/06/native-java-helidon[Build REST APIs and Native Java Apps with Helidon]
+👀 Read the blog post: https://developer.okta.com/blog/2021/06/18/native-java-framework-comparison[Build Native Java Apps with Micronaut, Quarkus, and Spring Boot]

@@ -3,9 +3,9 @@
 :toc: macro
 :source-highlighter: highlight.js
 
-= Build a Native Java REST API with Helidon and OAuth 2.0
+= Build a Native Java REST API with Quarkus and OAuth 2.0
 
-In this demo, I'll show how to create a secure REST API and native image with Helidon. You'll see how to run a secure, OAuth 2.0-protected, Java REST API that allows JWT authentication. Then, I'll compare its performance with Micronaut, Quarkus, and Spring Boot.
+In this demo, I'll show how to create a secure REST API and native image with Quarkus. You'll see how to run a secure, OAuth 2.0-protected, Java REST API that allows JWT authentication. Then, I'll compare its performance with Micronaut, Spring Boot, and Helidon.
 
 **Prerequisites:**
 
@@ -45,56 +45,52 @@ toc::[]
 
   TOKEN=eyJraWQiOiJYa2pXdjMzTDRBYU1ZSzNGM...
 
-== Construct a Java API with Helidon
+== Create a Quarkus Java API
 
-. Create a Helidon app with OAuth 2.0 support:
+. Use Maven to generate a new Quarkus app with JWT support:
 +
 [source,shell]
 ----
-mvn -U archetype:generate -DinteractiveMode=false \
-   -DarchetypeGroupId=io.helidon.archetypes \
-   -DarchetypeArtifactId=helidon-quickstart-mp \
-   -DarchetypeVersion=2.4.2 \
-   -DgroupId=com.okta.rest \
-   -DartifactId=helidon \
-   -Dpackage=com.okta.rest
-----
-+
-TIP: You can also install the https://helidon.io/docs/v2/#/about/05_cli[Helidon's CLI] and run `helidon init`.
-
-. Add MicroProfile JWT support in `pom.xml`:
-+
-[source,xml]
-----
-<dependency>
-    <groupId>io.helidon.microprofile.jwt</groupId>
-    <artifactId>helidon-microprofile-jwt-auth</artifactId>
-</dependency>
+mvn io.quarkus:quarkus-maven-plugin:2.7.5.Final:create \
+    -DprojectGroupId=com.okta.rest \
+    -DprojectArtifactId=quarkus \
+    -DclassName="com.okta.rest.quarkus.HelloResource" \
+    -Dpath="/hello" \
+    -Dextensions="smallrye-jwt,resteasy-reactive"
 ----
 
-. Add a `HelloController` class that returns the user's information: [`h-hello`]
+. Edit `src/java/com/okta/rest/quarkus/HelloResource.java` and add user information to the `hello()` method: [`qk-hello`]
 +
 [source,java]
 ----
-package com.okta.rest.controller;
+package com.okta.rest.quarkus;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import io.quarkus.security.Authenticated;
 
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.SecurityContext;
 import java.security.Principal;
 
-@RestController
-public class HelloController {
+@Path("/hello")
+public class HelloResource {
 
-    @GetMapping("/hello")
-    public String hello(Principal principal) {
-        return "Hello, " + principal.getName() + "!";
+    @GET
+    @Path("/")
+    @Authenticated
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hello(@Context SecurityContext context) {
+        Principal userPrincipal = context.getUserPrincipal();
+        return "Hello, " + userPrincipal.getName() + "!";
     }
 
 }
 ----
 
-. Add your Okta endpoints to `src/main/resources/META-INF/microprofile-config.properties`.
+. Add your Okta endpoints to `src/main/resources/application.properties`: [`qk-properties`]
 +
 [source,properties]
 ----
@@ -102,51 +98,56 @@ mp.jwt.verify.publickey.location=https://{yourOktaDomain}/oauth2/default/v1/keys
 mp.jwt.verify.issuer=https://{yourOktaDomain}/oauth2/default
 ----
 
-. Add a `HelloApplication` class in `src/main/java/com/okta/rest` to register your resource and configure JWT authentication: [`h-app`]
+. Modify the `HelloResourceTest` to expect a 401 instead of a 200:
 +
 [source,java]
 ----
-package com.okta.rest;
+package com.okta.rest.quarkus;
 
-import com.okta.rest.controller.HelloResource;
-import org.eclipse.microprofile.auth.LoginConfig;
+import io.quarkus.test.junit.QuarkusTest;
+import org.junit.jupiter.api.Test;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.ws.rs.core.Application;
-import java.util.Set;
+import static io.restassured.RestAssured.given;
 
-@LoginConfig(authMethod = "MP-JWT")
-@ApplicationScoped
-public class HelloApplication extends Application {
+@QuarkusTest
+public class HelloResourceTest {
 
-    @Override
-    public Set<Class<?>> getClasses() {
-        return Set.of(HelloResource.class);
+    @Test
+    public void testHelloEndpoint() {
+        given()
+            .when().get("/hello")
+            .then()
+            .statusCode(401);
     }
+
 }
 ----
 
-=== Run and Test Your Helidon API with HTTPie
+=== Run and Test Your Quarkus API with HTTPie
 
-. Start your app from your IDE or using a terminal:
+. Run your Quarkus app:
 
-  mvn package && java -jar ./target/helidon
+  ./mvnw quarkus:dev
 
-. Test your API with an access token.
+. Test it from another terminal:
 
-  http Authorization:"Bearer $TOKEN" :8080/hello
+  http :8080/hello
 
-=== Build a native Helidon app with GraalVM
+. Test with access token:
 
-. Compile your Helidon app into a native executable using the `native-image` profile:
+  http :8080/hello Authorization:"Bearer $TOKEN"
 
-  mvn package -Pnative-image
+=== Build a Native Quarkus App
 
-. Start your Helidon app:
+. Compile your Quarkus app into a native binary:
 
-  ./target/helidon
+  ./mvnw package -Pnative
 
-. Test your API with an access token.
+. Start your Quarkus app:
+
+  ./target/quarkus-1.0.0-SNAPSHOT-runner
+
+. Test it with HTTPie and an access token:
 
   http :8080/hello Authorization:"Bearer $TOKEN"
 
@@ -194,10 +195,10 @@ Substitute `<executable>` as follows:
 |Spring Boot | `demo` | 46 | 57 | 57
 |===
 
-IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Helidon, do you get faster startup times for Micronaut and Quarkus too?
+IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Quarkus, do you get faster startup times for Helidon, Micronaut, and Spring Boot too?
 
-== Native Java with Helidon FTW!
+== Native Java with Quarkus FTW!
 
 🚀 Find the code on GitHub: https://github.com/oktadev/native-java-examples[@oktadev/native-java-examples]
 
-👀 Read the blog post: https://developer.okta.com/blog/2022/01/06/native-java-helidon[Build REST APIs and Native Java Apps with Helidon]
+👀 Read the blog post: https://developer.okta.com/blog/2021/06/18/native-java-framework-comparison[Build Native Java Apps with Micronaut, Quarkus, and Spring Boot]

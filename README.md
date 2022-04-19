@@ -1,4 +1,4 @@
-# Native Java Examples: Micronaut, Quarkus, and Spring Boot
+# Native Java Examples: Micronaut, Quarkus, Spring Boot, and Helidon
 
 This repository contains example OAuth 2.0 resource servers built with Micronaut, Quarkus, and Spring Boot. If you'd like to see how they were built, please read [Build Native Java Apps with Micronaut, Quarkus, and Spring Boot][blog].
 
@@ -22,13 +22,7 @@ git clone https://github.com/oktadev/native-java-examples.git
 You will need a JDK with GraalVM and its native-image compiler. Using [SDKMAN](https://sdkman.io), run the following command and set it as the default:
 
 ```bash
-sdk install java 21.3.0.r17-grl
-```
-
-Add the native extension to the JDK:
-
-```bash
-gu install native-image
+sdk install java 22.0.0.2.r17-grl
 ```
 
 Next, you'll need a free Okta developer account. Install the [Okta CLI](https://cli.okta.com/) and run `okta register` to sign up for a new account. If you already have an account, run `okta login`. Then, run `okta apps create`. Select the default app name, or change it as you see fit. Choose **Single-Page App** and press **Enter**.
@@ -75,16 +69,16 @@ You should see your email address printed to your terminal.
 
 You can also build and run each example as a native app.
 
-- Micronaut: `./mvnw package -Dpackaging=native-image`
+- Micronaut: `./mvnw clean package -Dpackaging=native-image`
 - Quarkus: `./mvnw package -Pnative`
-- Spring Boot: `./mvnw spring-boot:build-image` (or `./mvnw package -Pnative` if you don't have Docker installed)
+- Spring Boot: `./mvnw package -Pnative` (if you'd rather use Docker: `./mvnw spring-boot:build-image`)
 - Helidon: `mvn package -Pnative-image`
 
 Then, start each app as a native executable.
 
 - Micronaut: `./target/app`
 - Quarkus: `./target/quarkus-1.0.0-SNAPSHOT-runner`
-- Spring Boot: `docker run -p 8080:8080 demo:0.0.1-SNAPSHOT` (or `./target/demo` if you didn't use Docker)
+- Spring Boot:  `./target/demo` (if Docker: `docker run -p 8080:8080 demo:0.0.1-SNAPSHOT`)
 - Helidon: `./target/helidon`
 
 Please read [Build Native Java Apps with Micronaut, Quarkus, and Spring Boot][blog] for performance numbers and analysis. To see how Helidon compares, see [Build REST APIs and Native Java Apps with Helidon][blog-helidon].
