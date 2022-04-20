@@ -357,7 +357,6 @@ TIP: To build a native app and a Docker container, use the Spring Boot Maven plu
 Micronaut: (25 + 29 + 29 + 28 + 28) / 5 = 27.8
 Quarkus: (17 + 18 + 18 + 18 + 17) / 5 = 17.6
 Spring Boot: (54 + 55 + 52 + 54 + 54) / 5 = 53.8
-Helidon: (40 + 40 + 42 + 42 + 38) / 5 = 40.4
 ----
 
 .Native Java startup times in milliseconds
@@ -367,7 +366,6 @@ Helidon: (40 + 40 + 42 + 42 + 38) / 5 = 40.4
 |Micronaut | `./micronaut/target/app` | 27.8
 |Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 17.6
 |Spring Boot | `./spring-boot/target/demo` | 53.8
-|Helidon | `./helidon/target/helidon` | 40.4
 |===
 
 == Memory Usage Comparison
@@ -388,16 +386,12 @@ Substitute `<executable>` as follows:
 |Micronaut | `app` | 28 | 43 | 54
 |Quarkus | `quarkus` | 20 | 31 | 33
 |Spring Boot | `demo` | 46 | 57 | 58
-|Helidon | `helidon` | 44 | 55 | 63
 |===
 
-IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Spring Boot, do you get faster startup times for Micronaut, Quarkus, and Helidon too?
+IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Spring Boot, do you get faster startup times for Micronaut and Quarkus too?
 
 == Native Java REST APIs FTW!
 
 🚀 Find the code on GitHub: https://github.com/oktadev/native-java-examples[@oktadev/native-java-examples]
 
-📖 Read the blog posts:
-
-- https://developer.okta.com/blog/2021/06/18/native-java-framework-comparison[Build Native Java Apps with Micronaut, Quarkus, and Spring Boot]
-- https://developer.okta.com/blog/2022/01/06/native-java-helidon[Build REST APIs and Native Java Apps with Helidon]
+📖 Read the blog post: https://developer.okta.com/blog/2021/06/18/native-java-framework-comparison[Build Native Java Apps with Micronaut, Quarkus, and Spring Boot]
