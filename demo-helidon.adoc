@@ -19,13 +19,9 @@ toc::[]
 
 == Install a JDK with GraalVM
 
-. Use SDKMAN to install Java 17 with GraalVM
+Use SDKMAN to install Java 17 with GraalVM
 
   sdk install java 22.0.0.2.r17-grl
-
-. Add the native extension to the JDK:
-
-  gu install native-image
 
 == Generate an OAuth 2.0 Access Token
 
@@ -54,7 +50,7 @@ toc::[]
 mvn -U archetype:generate -DinteractiveMode=false \
    -DarchetypeGroupId=io.helidon.archetypes \
    -DarchetypeArtifactId=helidon-quickstart-mp \
-   -DarchetypeVersion=2.4.2 \
+   -DarchetypeVersion=2.5.0 \
    -DgroupId=com.okta.rest \
    -DartifactId=helidon \
    -Dpackage=com.okta.rest
@@ -94,14 +90,6 @@ public class HelloController {
 }
 ----
 
-. Add your Okta endpoints to `src/main/resources/META-INF/microprofile-config.properties`.
-+
-[source,properties]
-----
-mp.jwt.verify.publickey.location=https://{yourOktaDomain}/oauth2/default/v1/keys
-mp.jwt.verify.issuer=https://{yourOktaDomain}/oauth2/default
-----
-
 . Add a `HelloApplication` class in `src/main/java/com/okta/rest` to register your resource and configure JWT authentication: [`h-app`]
 +
 [source,java]
@@ -124,6 +112,14 @@ public class HelloApplication extends Application {
         return Set.of(HelloResource.class);
     }
 }
+----
+
+. Add your Okta endpoints to `src/main/resources/META-INF/microprofile-config.properties`.
++
+[source,properties]
+----
+mp.jwt.verify.publickey.location=https://{yourOktaDomain}/oauth2/default/v1/keys
+mp.jwt.verify.issuer=https://{yourOktaDomain}/oauth2/default
 ----
 
 === Run and Test Your Helidon API with HTTPie
@@ -157,20 +153,20 @@ public class HelloApplication extends Application {
 . Write each time down, add them up, and divide by five for the average. For example:
 +
 ----
-Helidon: (40 + 40 + 39 + 39 + 39) / 5 = 39.4
-Micronaut: (36 + 37 + 34 + 34 + 34) / 5 = 35
-Quarkus: (19 + 19 + 18 + 19 + 18) / 5 = 18.6
-Spring Boot: (53 + 56 + 55 + 55 + 54) / 5 = 54.6
+Helidon: (40 + 40 + 42 + 42 + 38) / 5 = 40.4
+Micronaut: (25 + 29 + 29 + 28 + 28) / 5 = 27.8
+Quarkus: (17 + 18 + 18 + 18 + 17) / 5 = 17.6
+Spring Boot: (54 + 55 + 52 + 54 + 54) / 5 = 53.8
 ----
 
 .Native Java startup times in milliseconds
 |===
 |Framework | Command executed | Milliseconds to start
 
-|Helidon | `./helidon/target/helidon` | 39.4
-|Micronaut | `./micronaut/target/app` | 35
-|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 18.6
-|Spring Boot | `./spring-boot/target/demo` | 54.6
+|Helidon | `./helidon/target/helidon` | 40.4
+|Micronaut | `./micronaut/target/app` | 27.8
+|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 17.6
+|Spring Boot | `./spring-boot/target/demo` | 53.8
 |===
 
 == Memory Usage Comparison
@@ -191,7 +187,7 @@ Substitute `<executable>` as follows:
 |Helidon | `helidon` | 44 | 55 | 63
 |Micronaut | `app` | 28 | 43 | 54
 |Quarkus | `quarkus` | 20 | 31 | 33
-|Spring Boot | `demo` | 46 | 57 | 57
+|Spring Boot | `demo` | 46 | 57 | 58
 |===
 
 IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Helidon, do you get faster startup times for Micronaut and Quarkus too?
