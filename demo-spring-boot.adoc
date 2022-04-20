@@ -35,6 +35,8 @@ toc::[]
 
 . Use `\https://oidcdebugger.com/debug` for the Redirect URI and set the Logout Redirect URI to `\https://oidcdebugger.com`.
 
+. Next, configure your application on Okta to use OpenID Connect's implicit flow. Run `okta login` and open the resulting URL in your browser. Log in and go to the **Applications** section. Select the application you created with the CLI. Edit its General Settings and add **Implicit (Hybrid)** as an allowed grant type, with access token enabled. Click **Save** and copy the client ID for the next step.
+
 . Navigate to the https://oidcdebugger.com/[OpenID Connect Debugger] website. Fill in your client ID, and use `\https://{yourOktaDomain}/oauth2/default/v1/authorize` for the Authorize URI. The `state` field must be filled but can contain any characters. Select **token** for the response type.
 
 . Click **Send Request** to continue.
@@ -56,6 +58,31 @@ https start.spring.io/starter.zip \
   name==spring-boot \
   type==maven-project \
   baseDir==spring-boot | tar -xzvf -
+----
+
+. Modify `pom.xml` to use `tomcat-embed-programmatic` instead of the default Tomcat.
++
+[source,xml]
+----
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+    <exclusions>
+        <exclusion>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-websocket</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+<dependency>
+    <groupId>org.apache.tomcat.experimental</groupId>
+    <artifactId>tomcat-embed-programmatic</artifactId>
+    <version>${tomcat.version}</version>
+</dependency>
 ----
 
 . Add a `HelloController` class that returns the user's information: [`sb-hello`]
@@ -180,7 +207,7 @@ Substitute `<executable>` as follows:
 |Spring Boot | `demo` | 46 | 57 | 57
 |===
 
-IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Helidon, do you get faster startup times for Micronaut and Quarkus too?
+IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Spring Boot, do you get faster startup times for Helidon, Micronaut, and Quarkus too?
 
 == Native Java with Spring Boot FTW!
 

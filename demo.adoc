@@ -35,6 +35,8 @@ toc::[]
 
 . Use `\https://oidcdebugger.com/debug` for the Redirect URI and set the Logout Redirect URI to `\https://oidcdebugger.com`.
 
+. Next, configure your application on Okta to use OpenID Connect's implicit flow. Run `okta login` and open the resulting URL in your browser. Log in and go to the **Applications** section. Select the application you created with the CLI. Edit its General Settings and add **Implicit (Hybrid)** as an allowed grant type, with access token enabled. Click **Save** and copy the client ID for the next step.
+
 . Navigate to the https://oidcdebugger.com/[OpenID Connect Debugger] website. Fill in your client ID, and use `\https://{yourOktaDomain}/oauth2/default/v1/authorize` for the Authorize URI. The `state` field must be filled but can contain any characters. Select **token** for the response type.
 
 . Click **Send Request** to continue.
@@ -133,7 +135,7 @@ You should get a 200 response with your email in it.
 +
 [source,shell]
 ----
-mvn io.quarkus:quarkus-maven-plugin:2.7.5.Final:create \
+mvn io.quarkus:quarkus-maven-plugin:2.8.1.Final:create \
     -DprojectGroupId=com.okta.rest \
     -DprojectArtifactId=quarkus \
     -DclassName="com.okta.rest.quarkus.HelloResource" \
@@ -161,14 +163,12 @@ import java.security.Principal;
 public class HelloResource {
 
     @GET
-    @Path("/")
     @Authenticated
     @Produces(MediaType.TEXT_PLAIN)
     public String hello(@Context SecurityContext context) {
         Principal userPrincipal = context.getUserPrincipal();
         return "Hello, " + userPrincipal.getName() + "!";
     }
-
 }
 ----
 
@@ -358,20 +358,20 @@ TIP: To build a native app and a Docker container, use the Spring Boot Maven plu
 . Write each time down, add them up, and divide by five for the average. For example:
 +
 ----
-Helidon: (40 + 40 + 39 + 39 + 39) / 5 = 39.4
-Micronaut: (36 + 37 + 34 + 34 + 34) / 5 = 35
-Quarkus: (19 + 19 + 18 + 19 + 18) / 5 = 18.6
-Spring Boot: (53 + 56 + 55 + 55 + 54) / 5 = 54.6
+Micronaut: (25 + 29 + 29 + 28 + 28) / 5 = 27.8
+Quarkus: (17 + 18 + 18 + 18 + 17) / 5 = 17.6
+Spring Boot: (54 + 55 + 52 + 54 + 54) / 5 = 53.8
+Helidon: (40 + 40 + 42 + 42 + 38) / 5 = 40.4
 ----
 
 .Native Java startup times in milliseconds
 |===
 |Framework | Command executed | Milliseconds to start
 
-|Helidon | `./helidon/target/helidon` | 39.4
-|Micronaut | `./micronaut/target/app` | 35
-|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 18.6
-|Spring Boot | `./spring-boot/target/demo` | 54.6
+|Micronaut | `./micronaut/target/app` | 27.8
+|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 17.6
+|Spring Boot | `./spring-boot/target/demo` | 53.8
+|Helidon | `./helidon/target/helidon` | 40.4
 |===
 
 == Memory Usage Comparison
@@ -389,13 +389,13 @@ Substitute `<executable>` as follows:
 |===
 |Framework | Executable | Megabytes before request | Megabytes after request| Megabytes after 5 requests
 
-|Helidon | `helidon` | 44 | 55 | 63
 |Micronaut | `app` | 28 | 43 | 54
 |Quarkus | `quarkus` | 20 | 31 | 33
-|Spring Boot | `demo` | 46 | 57 | 57
+|Spring Boot | `demo` | 46 | 57 | 58
+|Helidon | `helidon` | 44 | 55 | 63
 |===
 
-IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Spring Boot, do you get faster startup times for Helidon, Micronaut, and Quarkus too?
+IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Spring Boot, do you get faster startup times for Micronaut, Quarkus, and Helidon too?
 
 == Native Java REST APIs FTW!
 
