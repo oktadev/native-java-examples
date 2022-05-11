@@ -194,6 +194,28 @@ Substitute `<executable>` as follows:
 
 IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Quarkus, do you get faster startup times for Helidon, Micronaut, and Spring Boot too?
 
+.What about the MacBook Pro M1 Max?
+****
+
+My MacBook Pro (16-inch, 2021) with Apple M1 Max builds _much_ faster, apps startup 2x faster, but they use more memory.
+
+////
+start: started 3 times and took fastest
+
+ps -o pid,rss,command | grep --color <executable> | awk '{$2=int($2/1024)"M";}{ print;}'
+////
+
+[cols="<,^,^,^,^",options=header]
+|===
+|Metric | Micronaut | Quarkus | Spring Boot | Helidon
+
+|Milliseconds to start | `17` | `12` | `36` | `23`
+|MB used on start | `42` | `33` | `63` | `64`
+|MB after 5 requests | `68` | `47` | `75` | `84`
+|===
+
+****
+
 == Native Java with Quarkus FTW!
 
 🚀 Find the code on GitHub: https://github.com/oktadev/native-java-examples[@oktadev/native-java-examples]
