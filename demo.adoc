@@ -116,7 +116,7 @@ You should get a 200 response with your email in it.
 
 . Compile your Micronaut app into a native binary:
 
-  ./mvnw package -Dpackaging=native-image
+  ./mvnw clean package -Dpackaging=native-image
 
 . Start your Micronaut app:
 

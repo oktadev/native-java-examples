@@ -7,6 +7,8 @@
 
 In this demo, I'll show how to create a secure REST API and native image with Helidon. You'll see how to run a secure, OAuth 2.0-protected, Java REST API that allows JWT authentication. Then, I'll compare its performance with Micronaut, Quarkus, and Spring Boot.
 
+_Check this video's description below for links to its blog post, comments, demo script, and code example._
+
 **Prerequisites:**
 
 - https://sdkman.io/[SDKMAN] (for Java 17 with GraalVM)
@@ -21,23 +23,24 @@ toc::[]
 
 Use SDKMAN to install Java 17 with GraalVM
 
-  sdk install java 22.0.0.2.r17-grl
+  sdk install java 22.1.0.r17-grl
 
 == Generate an OAuth 2.0 Access Token
 
 . Install the https://cli.okta.com/[Okta CLI] and run `okta register` to sign up for a new account. If you already have an account, run `okta login`.
 
-. Run `okta apps create`. Set `oidcdebugger` as an app name, choose **Single-Page App** and press **Enter**.
+. Run `okta apps create spa`. Set `oidcdebugger` as an app name and press **Enter**.
 
 . Use `\https://oidcdebugger.com/debug` for the Redirect URI and set the Logout Redirect URI to `\https://oidcdebugger.com`.
 
-. Next, configure your application on Okta to use OpenID Connect's implicit flow. Run `okta login` and open the resulting URL in your browser. Log in and go to the **Applications** section. Select the application you created with the CLI. Edit its General Settings and add **Implicit (Hybrid)** as an allowed grant type, with access token enabled. Click **Save** and copy the client ID for the next step.
+. Navigate to the https://oidcdebugger.com/[OpenID Connect Debugger website].
 
-. Navigate to the https://oidcdebugger.com/[OpenID Connect Debugger] website. Fill in your client ID, and use `\https://{yourOktaDomain}/oauth2/default/v1/authorize` for the Authorize URI. The `state` field must be filled but can contain any characters. Select **token** for the response type.
+.. Fill in your client ID
+.. Use `\https://{yourOktaDomain}/oauth2/default/v1/authorize` for the Authorize URI
+.. Select **code** for the response type and **Use PKCE**
+.. Click **Send Request** to continue
 
-. Click **Send Request** to continue.
-
-. Set it as a `TOKEN` environment variable in a terminal window.
+. Set the access token as a `TOKEN` environment variable in a terminal window.
 
   TOKEN=eyJraWQiOiJYa2pXdjMzTDRBYU1ZSzNGM...
 
@@ -153,20 +156,20 @@ mp.jwt.verify.issuer=https://{yourOktaDomain}/oauth2/default
 . Write each time down, add them up, and divide by five for the average. For example:
 +
 ----
-Helidon: (40 + 40 + 42 + 42 + 38) / 5 = 40.4
-Micronaut: (25 + 29 + 29 + 28 + 28) / 5 = 27.8
-Quarkus: (17 + 18 + 18 + 18 + 17) / 5 = 17.6
-Spring Boot: (54 + 55 + 52 + 54 + 54) / 5 = 53.8
+Helidon: (40 + 42 + 48 + 41 + 41) / 5 = 42.4
+Micronaut: (27 + 29 + 26 + 29 + 28) / 5 = 27.8
+Quarkus: (19 + 19 + 20 + 19 + 19) / 5 = 19.2
+Spring Boot: (58 + 58 + 58 + 60 + 59) / 5 = 58.6
 ----
 
 .Native Java startup times in milliseconds
 |===
 |Framework | Command executed | Milliseconds to start
 
-|Helidon | `./helidon/target/helidon` | 40.4
+|Helidon | `./helidon/target/helidon` | 42.4
 |Micronaut | `./micronaut/target/app` | 27.8
-|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 17.6
-|Spring Boot | `./spring-boot/target/demo` | 53.8
+|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 19.2
+|Spring Boot | `./spring-boot/target/demo` | 58.6
 |===
 
 == Memory Usage Comparison
@@ -184,13 +187,35 @@ Substitute `<executable>` as follows:
 |===
 |Framework | Executable | Megabytes before request | Megabytes after request| Megabytes after 5 requests
 
-|Helidon | `helidon` | 44 | 55 | 63
-|Micronaut | `app` | 28 | 43 | 54
-|Quarkus | `quarkus` | 20 | 31 | 33
-|Spring Boot | `demo` | 46 | 57 | 58
+|Helidon | `helidon` | 42 | 54 | 62
+|Micronaut | `app` | 31 | 45 | 56
+|Quarkus | `quarkus` | 23 | 34 | 36
+|Spring Boot | `demo` | 50 | 61 | 62
 |===
 
 IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Helidon, do you get faster startup times for Micronaut and Quarkus too?
+
+.What about the MacBook Pro M1 Max?
+****
+
+My MacBook Pro (16-inch, 2021) with Apple M1 Max builds _much_ faster, apps startup 2x faster, but they use more memory.
+
+////
+start: started 3 times and took fastest
+
+ps -o pid,rss,command | grep --color <executable> | awk '{$2=int($2/1024)"M";}{ print;}'
+////
+
+[cols="<,^,^,^,^",options=header]
+|===
+|Metric | Micronaut | Quarkus | Spring Boot | Helidon
+
+|Milliseconds to start | `17` | `12` | `36` | `23`
+|MB used on start | `42` | `33` | `63` | `64`
+|MB after 5 requests | `68` | `47` | `75` | `84`
+|===
+
+****
 
 == Native Java with Helidon FTW!
 
