@@ -21,23 +21,24 @@ toc::[]
 
 . Use SDKMAN to install Java 17 with GraalVM
 
-  sdk install java 22.0.0.2.r17-grl
+  sdk install java 22.1.0.r17-grl
 
 == Generate an OAuth 2.0 Access Token
 
 . Install the https://cli.okta.com/[Okta CLI] and run `okta register` to sign up for a new account. If you already have an account, run `okta login`.
 
-. Run `okta apps create`. Set `oidcdebugger` as an app name, choose **Single-Page App** and press **Enter**.
+. Run `okta apps create spa`. Set `oidcdebugger` as an app name and press **Enter**.
 
 . Use `\https://oidcdebugger.com/debug` for the Redirect URI and set the Logout Redirect URI to `\https://oidcdebugger.com`.
 
-. Next, configure your application on Okta to use OpenID Connect's implicit flow. Run `okta login` and open the resulting URL in your browser. Log in and go to the **Applications** section. Select the application you created with the CLI. Edit its General Settings and add **Implicit (Hybrid)** as an allowed grant type, with access token enabled. Click **Save** and copy the client ID for the next step.
+. Navigate to the https://oidcdebugger.com/[OpenID Connect Debugger website].
 
-. Navigate to the https://oidcdebugger.com/[OpenID Connect Debugger] website. Fill in your client ID, and use `\https://{yourOktaDomain}/oauth2/default/v1/authorize` for the Authorize URI. The `state` field must be filled but can contain any characters. Select **token** for the response type.
+.. Fill in your client ID
+.. Use `\https://{yourOktaDomain}/oauth2/default/v1/authorize` for the Authorize URI
+.. Select **code** for the response type and **Use PKCE**
+.. Click **Send Request** to continue
 
-. Click **Send Request** to continue.
-
-. Set it as a `TOKEN` environment variable in a terminal window.
+. Set the access token as a `TOKEN` environment variable in a terminal window.
 
   TOKEN=eyJraWQiOiJYa2pXdjMzTDRBYU1ZSzNGM...
 
@@ -131,7 +132,7 @@ You should get a 200 response with your email in it.
 +
 [source,shell]
 ----
-mvn io.quarkus:quarkus-maven-plugin:2.8.1.Final:create \
+mvn io.quarkus:quarkus-maven-plugin:2.9.0.Final:create \
     -DprojectGroupId=com.okta.rest \
     -DprojectArtifactId=quarkus \
     -DclassName="com.okta.rest.quarkus.HelloResource" \
@@ -236,7 +237,7 @@ public class HelloResourceTest {
 [source,shell]
 ----
 https start.spring.io/starter.zip \
-  bootVersion==2.6.6 \
+  bootVersion==2.6.7 \
   dependencies==web,oauth2-resource-server,native \
   packageName==com.okta.rest \
   name==spring-boot \
