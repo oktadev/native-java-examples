@@ -141,7 +141,7 @@ mp.jwt.verify.issuer=https://{yourOktaDomain}/oauth2/default
 
 . Test your API with an access token.
 
-  http Authorization:"Bearer $TOKEN" :8080/hello
+  http :8080/hello Authorization:"Bearer $TOKEN"
 
 === Build a native Helidon app with GraalVM
 
