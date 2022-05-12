@@ -3,7 +3,7 @@
 :toc: macro
 :source-highlighter: highlight.js
 
-= Build a Native Java REST API with Helidon and OAuth 2.0
+= Build a Secure Java REST API with Helidon
 
 In this demo, I'll show how to create a secure REST API and native image with Helidon. You'll see how to run a secure, OAuth 2.0-protected, Java REST API that allows JWT authentication. Then, I'll compare its performance with Micronaut, Quarkus, and Spring Boot.
 
@@ -44,7 +44,7 @@ Use SDKMAN to install Java 17 with GraalVM
 
   TOKEN=eyJraWQiOiJYa2pXdjMzTDRBYU1ZSzNGM...
 
-== Construct a Java API with Helidon
+== Build a Java REST API with Helidon
 
 . Create a Helidon app with OAuth 2.0 support:
 +
@@ -125,7 +125,7 @@ mp.jwt.verify.publickey.location=https://{yourOktaDomain}/oauth2/default/v1/keys
 mp.jwt.verify.issuer=https://{yourOktaDomain}/oauth2/default
 ----
 
-=== Run and Test Your Helidon API with HTTPie
+=== Run and Test Your Helidon REST API with HTTPie
 
 . Start your app from your IDE or using a terminal:
 
@@ -162,7 +162,7 @@ Quarkus: (19 + 19 + 20 + 19 + 19) / 5 = 19.2
 Spring Boot: (58 + 58 + 58 + 60 + 59) / 5 = 58.6
 ----
 
-.Native Java startup times in milliseconds
+.Java REST API framework startup times in milliseconds
 |===
 |Framework | Command executed | Milliseconds to start
 
@@ -183,7 +183,7 @@ ps -o pid,rss,command | grep --color <executable> | awk '{$2=int($2/1024)"M";}{ 
 
 Substitute `<executable>` as follows:
 
-.Native Java memory used in megabytes
+.Java REST API framework memory used in megabytes
 |===
 |Framework | Executable | Megabytes before request | Megabytes after request| Megabytes after 5 requests
 
@@ -217,8 +217,10 @@ ps -o pid,rss,command | grep --color <executable> | awk '{$2=int($2/1024)"M";}{ 
 
 ****
 
-== Native Java with Helidon FTW!
+== Secure Native Java with Helidon FTW!
 
-🚀 Find the code on GitHub: https://github.com/oktadev/native-java-examples[@oktadev/native-java-examples]
+⚡️ Create a secure REST API with Helidon: `okta start helidon`
+
+🚀 Find this example's code on GitHub: https://github.com/oktadev/native-java-examples/tree/main/helidon[@oktadev/native-java-examples/helidon]
 
 👀 Read the blog post: https://developer.okta.com/blog/2022/01/06/native-java-helidon[Build REST APIs and Native Java Apps with Helidon]

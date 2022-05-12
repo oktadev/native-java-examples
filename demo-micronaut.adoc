@@ -3,7 +3,7 @@
 :toc: macro
 :source-highlighter: highlight.js
 
-= Build a Native Java REST API with Micronaut and OAuth 2.0
+= Build a Secure Java REST API with Micronaut
 
 In this demo, I'll show how to create a secure REST API and native image with Micronaut. You'll see how to run a secure, OAuth 2.0-protected, Java REST API that allows JWT authentication. Then, I'll compare its performance with Quarkus, Spring Boot, and Helidon.
 
@@ -44,7 +44,7 @@ Use SDKMAN to install Java 17 with GraalVM
 
   TOKEN=eyJraWQiOiJYa2pXdjMzTDRBYU1ZSzNGM...
 
-== Make a Micronaut Java API
+== Make a Micronaut Java REST API
 
 . Use SDKMAN to install Micronaut's CLI and create an app:
 +
@@ -102,7 +102,7 @@ micronaut:
               url: https://{yourOktaDomain}/oauth2/default/v1/keys
 ----
 
-=== Run and Test Your Micronaut API with HTTPie
+=== Run and Test Your Micronaut REST API with HTTPie
 
 . Start your app:
 
@@ -141,7 +141,7 @@ Spring Boot: (58 + 58 + 58 + 60 + 59) / 5 = 58.6
 Helidon: (40 + 42 + 48 + 41 + 41) / 5 = 42.4
 ----
 
-.Native Java startup times in milliseconds
+.Java REST API framework startup times in milliseconds
 |===
 |Framework | Command executed | Milliseconds to start
 
@@ -162,7 +162,7 @@ ps -o pid,rss,command | grep --color <executable> | awk '{$2=int($2/1024)"M";}{ 
 
 Substitute `<executable>` as follows:
 
-.Native Java memory used in megabytes
+.Java REST API framework memory used in megabytes
 |===
 |Framework | Executable | Megabytes before request | Megabytes after request| Megabytes after 5 requests
 
@@ -196,8 +196,10 @@ ps -o pid,rss,command | grep --color <executable> | awk '{$2=int($2/1024)"M";}{ 
 
 ****
 
-== Native Java with Micronaut FTW!
+== Secure Native Java with Micronaut FTW!
 
-🚀 Find the code on GitHub: https://github.com/oktadev/native-java-examples[@oktadev/native-java-examples]
+⚡️ Create a secure REST API with Micronaut: `okta start micronaut`
+
+🚀 Find this example's code on GitHub: https://github.com/oktadev/native-java-examples/tree/main/micronaut[@oktadev/native-java-examples/micronaut]
 
 👀 Read the blog post: https://developer.okta.com/blog/2021/06/18/native-java-framework-comparison[Build Native Java Apps with Micronaut, Quarkus, and Spring Boot]

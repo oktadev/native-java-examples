@@ -3,7 +3,7 @@
 :toc: macro
 :source-highlighter: highlight.js
 
-= Build a Native Java REST API with Spring Boot and OAuth 2.0
+= Build a Secure Java REST API with Spring Boot
 
 In this demo, I'll show how to create a secure REST API and native image with Spring Boot. You'll see how to run a secure, OAuth 2.0-protected, Java REST API that allows JWT authentication. Then, I'll compare its performance with Micronaut, Quarkus, and Helidon.
 
@@ -44,7 +44,7 @@ Use SDKMAN to install Java 17 with GraalVM
 
   TOKEN=eyJraWQiOiJYa2pXdjMzTDRBYU1ZSzNGM...
 
-== Start a Spring Boot Java API
+== Start a Spring Boot Java REST API
 
 . Create a Spring Boot app with OAuth 2.0 support:
 +
@@ -135,7 +135,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 }
 ----
 
-=== Run and Test Your Spring Boot API with HTTPie
+=== Run and Test Your Spring Boot REST API with HTTPie
 
 . Start your app from your IDE or using a terminal:
 
@@ -229,8 +229,16 @@ ps -o pid,rss,command | grep --color <executable> | awk '{$2=int($2/1024)"M";}{ 
 
 ****
 
-== Native Java with Spring Boot FTW!
+== Secure Native Java with Spring Boot FTW!
 
-🚀 Find the code on GitHub: https://github.com/oktadev/native-java-examples[@oktadev/native-java-examples]
+⚡️ Create a secure REST API with Spring Boot:
+
+[source,shell]
+----
+okta start spring-boot
+okta start spring-boot -b webflux
+----
+
+🚀 Find this example's code on GitHub: https://github.com/oktadev/native-java-examples/tree/main/spring-boot[@oktadev/native-java-examples/spring-boot]
 
 👀 Read the blog post: https://developer.okta.com/blog/2021/06/18/native-java-framework-comparison[Build Native Java Apps with Micronaut, Quarkus, and Spring Boot]

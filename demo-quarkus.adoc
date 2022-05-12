@@ -3,7 +3,7 @@
 :toc: macro
 :source-highlighter: highlight.js
 
-= Build a Native Java REST API with Quarkus and OAuth 2.0
+= Build a Secure Java REST API with Quarkus
 
 In this demo, I'll show how to create a secure REST API and native image with Quarkus. You'll see how to run a secure, OAuth 2.0-protected, Java REST API that allows JWT authentication. Then, I'll compare its performance with Micronaut, Spring Boot, and Helidon.
 
@@ -44,7 +44,7 @@ Use SDKMAN to install Java 17 with GraalVM
 
   TOKEN=eyJraWQiOiJYa2pXdjMzTDRBYU1ZSzNGM...
 
-== Create a Quarkus Java API
+== Create a Quarkus Java REST API
 
 . Use Maven to generate a new Quarkus app with JWT support:
 +
@@ -120,7 +120,7 @@ public class HelloResourceTest {
 }
 ----
 
-=== Run and Test Your Quarkus API with HTTPie
+=== Run and Test Your Quarkus REST API with HTTPie
 
 . Run your Quarkus app:
 
@@ -216,8 +216,10 @@ ps -o pid,rss,command | grep --color <executable> | awk '{$2=int($2/1024)"M";}{ 
 
 ****
 
-== Native Java with Quarkus FTW!
+== Secure Native Java with Quarkus FTW!
 
-🚀 Find the code on GitHub: https://github.com/oktadev/native-java-examples[@oktadev/native-java-examples]
+⚡️ Create a secure REST API with Quarkus: `okta start quarkus`
+
+🚀 Find this example's code on GitHub: https://github.com/oktadev/native-java-examples/tree/main/quarkus[@oktadev/native-java-examples/quarkus]
 
 👀 Read the blog post: https://developer.okta.com/blog/2021/06/18/native-java-framework-comparison[Build Native Java Apps with Micronaut, Quarkus, and Spring Boot]
