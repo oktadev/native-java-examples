@@ -77,19 +77,27 @@ TIP: You can also install the https://helidon.io/docs/v2/#/about/05_cli[Helidon'
 ----
 package com.okta.rest.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import io.helidon.security.Principal;
+import io.helidon.security.SecurityContext;
 
-import java.security.Principal;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import java.util.Optional;
 
-@RestController
-public class HelloController {
+import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 
-    @GetMapping("/hello")
-    public String hello(Principal principal) {
-        return "Hello, " + principal.getName() + "!";
+@Path("/hello")
+public class HelloResource {
+
+    @GET
+    @Path("/")
+    @Produces(TEXT_PLAIN)
+    public String hello(@Context SecurityContext context) {
+        Optional<Principal> userPrincipal = context.userPrincipal();
+        return "Hello, " + userPrincipal.get().getName() + "!";
     }
-
 }
 ----
 
