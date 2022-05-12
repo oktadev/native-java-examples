@@ -71,7 +71,7 @@ TIP: You can also install the https://helidon.io/docs/v2/#/about/05_cli[Helidon'
 </dependency>
 ----
 
-. Add a `HelloController` class that returns the user's information: [`h-hello`]
+. Add a `HelloResource` class that returns the user's information: [`h-hello`]
 +
 [source,java]
 ----
@@ -137,7 +137,7 @@ mp.jwt.verify.issuer=https://{yourOktaDomain}/oauth2/default
 
 . Start your app from your IDE or using a terminal:
 
-  mvn package && java -jar ./target/helidon
+  mvn package && java -jar ./target/helidon.jar
 
 . Test your API with an access token.
 
