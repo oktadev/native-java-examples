@@ -116,7 +116,7 @@ You should get a 200 response with your email in it.
 
 . Compile your Micronaut app into a native binary:
 
-  ./mvnw clean package -Dpackaging=native-image
+  ./mvnw package -Dpackaging=native-image
 
 . Start your Micronaut app:
 
@@ -132,7 +132,7 @@ You should get a 200 response with your email in it.
 +
 [source,shell]
 ----
-mvn io.quarkus:quarkus-maven-plugin:2.9.0.Final:create \
+mvn io.quarkus:quarkus-maven-plugin:2.9.2.Final:create \
     -DprojectGroupId=com.okta.rest \
     -DprojectArtifactId=quarkus \
     -DclassName="com.okta.rest.quarkus.HelloResource" \
@@ -237,7 +237,7 @@ public class HelloResourceTest {
 [source,shell]
 ----
 https start.spring.io/starter.zip \
-  bootVersion==2.6.7 \
+  bootVersion==2.7.0 \
   dependencies==web,oauth2-resource-server,native \
   packageName==com.okta.rest \
   name==spring-boot \
