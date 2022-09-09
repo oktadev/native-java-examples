@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2018, 2021 Oracle and/or its affiliates. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -29,25 +29,4 @@ spec:
     targetPort: 8080
     name: http
 ---
-kind: Deployment
-apiVersion: apps/v1
-metadata:
-  name: helidon
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: helidon
-  template:
-    metadata:
-      labels:
-        app: helidon
-        version: v1
-    spec:
-      containers:
-      - name: helidon
-        image: helidon
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 8080
----
+
