@@ -158,20 +158,20 @@ mp.jwt.verify.publickey.location=${mp.jwt.verify.issuer}/v1/keys
 . Write each time down, add them up, and divide by five for the average. For example:
 +
 ----
-Helidon: (40 + 39 + 39 + 40 + 39) / 5 = 39.4
-Micronaut: (19 + 17 + 20 + 18 + 21) / 5 = 19
-Quarkus: (18 + 17 + 18 + 21 + 20) / 5 = 18.8
-Spring Boot: (35 + 36 + 36 + 41 + 36) / 5 = 36.8
+Helidon: (42 + 42 + 42 + 40 + 42) / 5 = 41.6
+Micronaut: (18 + 17 + 18 + 21 + 16) / 5 = 18
+Quarkus: (19 + 19 + 20 + 19 + 19) / 5 = 19.2
+Spring Boot: (36 + 34 + 42 + 37 + 42) / 5 = 38.2
 ----
 
 .Java REST API framework startup times in milliseconds
 |===
 |Framework | Command executed | Milliseconds to start
 
-|Helidon | `./helidon/target/helidon` | 39.4
-|Micronaut | `./micronaut/target/app` | 19
-|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 18.8
-|Spring Boot | `./spring-boot/target/demo` | 36.8
+|Helidon | `./helidon/target/helidon` | 41.6
+|Micronaut | `./micronaut/target/app` | 18
+|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 19.2
+|Spring Boot | `./spring-boot/target/demo` | 38.2
 |===
 
 == Memory Usage Comparison
@@ -190,7 +190,7 @@ Substitute `<executable>` as follows:
 |Framework | Executable | Megabytes before request | Megabytes after request| Megabytes after 5 requests
 
 |Helidon | `helidon` | 79 | 98 | 133
-|Micronaut | `app` | 43 | 59 | 69
+|Micronaut | `app` | 43 | 59 | 70
 |Quarkus | `quarkus` | 37 | 50 | 52
 |Spring Boot | `demo` | 63 | 75 | 76
 |===
