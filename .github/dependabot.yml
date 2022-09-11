@@ -1,0 +1,22 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "maven"
+    directory: "/helidon"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "maven"
+    directory: "/micronaut"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "maven"
+    directory: "/quarkus"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "maven"
+    directory: "/spring-boot"
+    schedule:
+      interval: "weekly"
