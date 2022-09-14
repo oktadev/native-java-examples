@@ -11,9 +11,9 @@ public class HelloResourceTest {
     @Test
     public void testHelloEndpoint() {
         given()
-            .when().get("/hello")
-            .then()
-            .statusCode(401);
+          .when().get("/hello")
+          .then()
+             .statusCode(401);
     }
 
 }

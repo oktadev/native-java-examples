@@ -23,7 +23,7 @@ toc::[]
 
 Use SDKMAN to install Java 17 with GraalVM
 
-  sdk install java 22.1.0.r17-grl
+  sdk install java 22.2.r17-grl
 
 == Generate an OAuth 2.0 Access Token
 
@@ -53,13 +53,13 @@ Use SDKMAN to install Java 17 with GraalVM
 mvn -U archetype:generate -DinteractiveMode=false \
    -DarchetypeGroupId=io.helidon.archetypes \
    -DarchetypeArtifactId=helidon-quickstart-mp \
-   -DarchetypeVersion=2.5.0 \
+   -DarchetypeVersion=3.0.1 \
    -DgroupId=com.okta.rest \
    -DartifactId=helidon \
    -Dpackage=com.okta.rest
 ----
 +
-TIP: You can also install the https://helidon.io/docs/v2/#/about/05_cli[Helidon's CLI] and run `helidon init`.
+TIP: You can also install the https://helidon.io/docs/latest/#/about/cli[Helidon's CLI] and run `helidon init`.
 
 . Add MicroProfile JWT support in `pom.xml`:
 +
@@ -78,25 +78,19 @@ TIP: You can also install the https://helidon.io/docs/v2/#/about/05_cli[Helidon'
 package com.okta.rest.controller;
 
 import io.helidon.security.Principal;
-import io.helidon.security.SecurityContext;
+import io.helidon.security.annotations.Authenticated;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import java.util.Optional;
-
-import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.core.Context;
 
 @Path("/hello")
 public class HelloResource {
 
+    @Authenticated
     @GET
-    @Path("/")
-    @Produces(TEXT_PLAIN)
     public String hello(@Context SecurityContext context) {
-        Optional<Principal> userPrincipal = context.userPrincipal();
-        return "Hello, " + userPrincipal.get().getName() + "!";
+        return "Hello, " + context.userName() + "!";
     }
 }
 ----
@@ -110,8 +104,8 @@ package com.okta.rest;
 import com.okta.rest.controller.HelloResource;
 import org.eclipse.microprofile.auth.LoginConfig;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.ws.rs.core.Application;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.ws.rs.core.Application;
 import java.util.Set;
 
 @LoginConfig(authMethod = "MP-JWT")
@@ -129,8 +123,8 @@ public class HelloApplication extends Application {
 +
 [source,properties]
 ----
-mp.jwt.verify.publickey.location=https://{yourOktaDomain}/oauth2/default/v1/keys
 mp.jwt.verify.issuer=https://{yourOktaDomain}/oauth2/default
+mp.jwt.verify.publickey.location=${mp.jwt.verify.issuer}/v1/keys
 ----
 
 === Run and Test Your Helidon REST API with HTTPie
@@ -164,20 +158,20 @@ mp.jwt.verify.issuer=https://{yourOktaDomain}/oauth2/default
 . Write each time down, add them up, and divide by five for the average. For example:
 +
 ----
-Helidon: (40 + 42 + 48 + 41 + 41) / 5 = 42.4
-Micronaut: (27 + 29 + 26 + 29 + 28) / 5 = 27.8
-Quarkus: (19 + 19 + 20 + 19 + 19) / 5 = 19.2
-Spring Boot: (58 + 58 + 58 + 60 + 59) / 5 = 58.6
+Helidon: (40 + 39 + 37 + 44 + 40) / 5 = 40
+Micronaut: (17 + 19 + 18 + 17 + 20) / 5 = 18.2
+Quarkus: (20 + 17 + 19 + 21 + 18) / 5 = 19
+Spring Boot: (37 + 36 + 34 + 40 + 37) / 5 = 36.8
 ----
 
 .Java REST API framework startup times in milliseconds
 |===
 |Framework | Command executed | Milliseconds to start
 
-|Helidon | `./helidon/target/helidon` | 42.4
-|Micronaut | `./micronaut/target/app` | 27.8
-|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 19.2
-|Spring Boot | `./spring-boot/target/demo` | 58.6
+|Helidon | `./helidon/target/helidon` | 40
+|Micronaut | `./micronaut/target/app` | 18.2
+|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 19
+|Spring Boot | `./spring-boot/target/demo` | 36.8
 |===
 
 == Memory Usage Comparison
@@ -195,35 +189,13 @@ Substitute `<executable>` as follows:
 |===
 |Framework | Executable | Megabytes before request | Megabytes after request| Megabytes after 5 requests
 
-|Helidon | `helidon` | 42 | 54 | 62
-|Micronaut | `app` | 31 | 45 | 56
-|Quarkus | `quarkus` | 23 | 34 | 36
-|Spring Boot | `demo` | 50 | 61 | 62
+|Helidon | `helidon` | 79 | 98 | 132
+|Micronaut | `app` | 43 | 59 | 69
+|Quarkus | `quarkus` | 37 | 49 | 51
+|Spring Boot | `demo` | 63 | 75 | 76
 |===
 
 IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Helidon, do you get faster startup times for Micronaut and Quarkus too?
-
-.What about the MacBook Pro M1 Max?
-****
-
-My MacBook Pro (16-inch, 2021) with Apple M1 Max builds _much_ faster, apps startup 2x faster, but they use more memory.
-
-////
-start: started 3 times and took fastest
-
-ps -o pid,rss,command | grep --color <executable> | awk '{$2=int($2/1024)"M";}{ print;}'
-////
-
-[cols="<,^,^,^,^",options=header]
-|===
-|Metric | Micronaut | Quarkus | Spring Boot | Helidon
-
-|Milliseconds to start | `17` | `12` | `36` | `23`
-|MB used on start | `42` | `33` | `63` | `64`
-|MB after 5 requests | `68` | `47` | `75` | `84`
-|===
-
-****
 
 == Secure Native Java with Helidon FTW!
 

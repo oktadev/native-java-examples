@@ -1,17 +1,8 @@
 micronaut:
   application:
     name: app
-  security:
-    enabled: true
-    token:
-      jwt:
-        enabled: true
-        claims-validators:
-          issuer: https://dev-17700857.okta.com/oauth2/default
-        signatures:
-          jwks:
-            okta:
-              url: https://dev-17700857.okta.com/oauth2/default/v1/keys
+  security.token.jwt.enabled: true
+  security.token.jwt.signatures.jwks.okta.url: https://dev-17700857.okta.com/oauth2/default/v1/keys
 netty:
   default:
     allocator:
