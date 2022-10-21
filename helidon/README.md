@@ -32,6 +32,30 @@ curl -X GET http://localhost:8080/greet/Jose
 
 
 
+## Building a Native Image
+
+Make sure you have GraalVM locally installed:
+
+```
+$GRAALVM_HOME/bin/native-image --version
+```
+
+Build the native image using the native image profile:
+
+```
+mvn package -Pnative-image
+```
+
+This uses the helidon-maven-plugin to perform the native compilation using your installed copy of GraalVM. It might take a while to complete.
+Once it completes start the application using the native executable (no JVM!):
+
+```
+./target/helidon
+```
+
+Yep, it starts fast. You can exercise the application’s endpoints as before.
+
+
 ## Try metrics
 
 ```
@@ -56,30 +80,6 @@ curl -s -X GET http://localhost:8080/health
 
 ```
 
-
-
-## Building a Native Image
-
-Make sure you have GraalVM locally installed:
-
-```
-$GRAALVM_HOME/bin/native-image --version
-```
-
-Build the native image using the native image profile:
-
-```
-mvn package -Pnative-image
-```
-
-This uses the helidon-maven-plugin to perform the native compilation using your installed copy of GraalVM. It might take a while to complete.
-Once it completes start the application using the native executable (no JVM!):
-
-```
-./target/helidon
-```
-
-Yep, it starts fast. You can exercise the application’s endpoints as before.
 
 
 ## Building the Docker Image

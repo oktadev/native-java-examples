@@ -53,7 +53,7 @@ Use SDKMAN to install Java 17 with GraalVM
 mvn -U archetype:generate -DinteractiveMode=false \
    -DarchetypeGroupId=io.helidon.archetypes \
    -DarchetypeArtifactId=helidon-quickstart-mp \
-   -DarchetypeVersion=3.0.1 \
+   -DarchetypeVersion=3.0.2 \
    -DgroupId=com.okta.rest \
    -DartifactId=helidon \
    -Dpackage=com.okta.rest

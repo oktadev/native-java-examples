@@ -50,7 +50,7 @@ Use SDKMAN to install Java 17 with GraalVM
 +
 [source,shell]
 ----
-mvn io.quarkus:quarkus-maven-plugin:2.12.1.Final:create \
+mvn io.quarkus:quarkus-maven-plugin:2.13.3.Final:create \
     -DprojectGroupId=com.okta.rest \
     -DprojectArtifactId=quarkus \
     -DclassName="com.okta.rest.quarkus.HelloResource" \

@@ -51,7 +51,7 @@ Use SDKMAN to install Java 17 with GraalVM
 [source,shell]
 ----
 https start.spring.io/starter.zip \
-  bootVersion==2.7.3 \
+  bootVersion==2.7.5 \
   dependencies==web,oauth2-resource-server,native \
   packageName==com.okta.rest \
   name==spring-boot \
