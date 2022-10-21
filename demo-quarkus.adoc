@@ -155,20 +155,20 @@ public class HelloResourceTest {
 . Write each time down, add them up, and divide by five for the average. For example:
 +
 ----
-Quarkus: (20 + 17 + 19 + 21 + 18) / 5 = 19
-Micronaut: (17 + 19 + 18 + 17 + 20) / 5 = 18.2
-Spring Boot: (37 + 36 + 34 + 40 + 37) / 5 = 36.8
-Helidon: (40 + 39 + 37 + 44 + 40) / 5 = 40
+Quarkus: (15 + 16 + 15 + 16 + 15) / 5 = 15.4
+Micronaut: (13 + 14 + 14 + 14 + 13) / 5 = 13.6
+Spring Boot: (30 + 31 + 29 + 30 + 29) / 5 = 29.8
+Helidon: (33 + 34 + 34 + 34 + 35) / 5 = 34
 ----
 
 .Native Java startup times in milliseconds
 |===
 |Framework | Command executed | Milliseconds to start
 
-|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 19
-|Micronaut | `./micronaut/target/app` | 18.2
-|Spring Boot | `./spring-boot/target/demo` | 36.8
-|Helidon | `./helidon/target/helidon` | 40
+|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 15.4
+|Micronaut | `./micronaut/target/app` | 13.6
+|Spring Boot | `./spring-boot/target/demo` | 29.8
+|Helidon | `./helidon/target/helidon` | 34
 |===
 
 == Memory Usage Comparison
@@ -186,10 +186,10 @@ Substitute `<executable>` as follows:
 |===
 |Framework | Executable | Megabytes before request | Megabytes after request| Megabytes after 5 requests
 
-|Quarkus | `quarkus` | 37 | 49 | 51
-|Micronaut | `app` | 43 | 59 | 69
+|Quarkus | `quarkus` | 38 | 50 | 52
+|Micronaut | `app` | 44 | 60 | 70
 |Spring Boot | `demo` | 63 | 75 | 76
-|Helidon | `helidon` | 79 | 98 | 132
+|Helidon | `helidon` | 80 | 99 | 133
 |===
 
 IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Quarkus, do you get faster startup times for Helidon, Micronaut, and Spring Boot too?
