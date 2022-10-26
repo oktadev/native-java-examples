@@ -23,7 +23,7 @@ toc::[]
 
 Use SDKMAN to install Java 17 with GraalVM
 
-  sdk install java 22.2.r17-grl
+  sdk install java 22.3.r17-grl
 
 == Generate an OAuth 2.0 Access Token
 
@@ -158,20 +158,20 @@ mp.jwt.verify.publickey.location=${mp.jwt.verify.issuer}/v1/keys
 . Write each time down, add them up, and divide by five for the average. For example:
 +
 ----
-Helidon: (33 + 34 + 34 + 34 + 35) / 5 = 34
-Micronaut: (13 + 14 + 14 + 14 + 13) / 5 = 13.6
-Quarkus: (15 + 16 + 15 + 16 + 15) / 5 = 15.4
-Spring Boot: (30 + 31 + 29 + 30 + 29) / 5 = 29.8
+Helidon: (45 + 44 + 45 + 39 + 43) / 5 = 43.2
+Micronaut: (17 + 19 + 19 + 20 + 15) / 5 = 18
+Quarkus: (25 + 18 + 20 + 19 + 21) / 5 = 20.6
+Spring Boot: (39 + 40 + 38 + 37 + 41) / 5 = 39
 ----
 
-.Java REST API framework startup times in milliseconds
+.Native Java startup times in milliseconds
 |===
 |Framework | Command executed | Milliseconds to start
 
-|Helidon | `./helidon/target/helidon` | 34
-|Micronaut | `./micronaut/target/app` | 13.6
-|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 15.4
-|Spring Boot | `./spring-boot/target/demo` | 29.8
+|Helidon | `./helidon/target/helidon` | 43.2
+|Micronaut | `./micronaut/target/app` | 18
+|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 20.6
+|Spring Boot | `./spring-boot/target/demo` | 39
 |===
 
 == Memory Usage Comparison
@@ -185,14 +185,14 @@ ps -o pid,rss,command | grep --color <executable> | awk '{$2=int($2/1024)"M";}{ 
 
 Substitute `<executable>` as follows:
 
-.Java REST API framework memory used in megabytes
+.Native Java memory used in megabytes
 |===
 |Framework | Executable | Megabytes before request | Megabytes after request| Megabytes after 5 requests
 
-|Helidon | `helidon` | 80 | 99 | 133
-|Micronaut | `app` | 44 | 60 | 70
-|Quarkus | `quarkus` | 38 | 50 | 52
-|Spring Boot | `demo` | 63 | 75 | 76
+|Helidon | `helidon` | 79 | 97 | 131
+|Micronaut | `app` | 43 | 58 | 69
+|Quarkus | `quarkus` | 37 | 48 | 50
+|Spring Boot | `demo` | 74 | 98 | 99
 |===
 
 IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Helidon, do you get faster startup times for Micronaut and Quarkus too?

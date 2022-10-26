@@ -9,6 +9,6 @@ cd micronaut && ./mvnw package -Dpackaging=native-image
 
 cd ../quarkus && ./mvnw package -Pnative
 
-cd ../spring-boot && ./mvnw package -Pnative
+cd ../spring-boot && ./mvnw native:compile -Pnative
 
 cd ../helidon && mvn package -Pnative-image

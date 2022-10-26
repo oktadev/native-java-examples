@@ -21,7 +21,7 @@ toc::[]
 
 Use SDKMAN to install Java 17 with GraalVM
 
-  sdk install java 22.2.r17-grl
+  sdk install java 22.3.r17-grl
 
 == Generate an OAuth 2.0 Access Token
 
@@ -237,37 +237,12 @@ public class HelloResourceTest {
 [source,shell]
 ----
 https start.spring.io/starter.zip \
-  bootVersion==2.7.5 \
-  dependencies==web,oauth2-resource-server,native \
+  bootVersion==3.0.0-RC1 \
+  dependencies==web,oauth2-resource-server \
   packageName==com.okta.rest \
   name==spring-boot \
   type==maven-project \
   baseDir==spring-boot | tar -xzvf -
-----
-
-. Modify `pom.xml` to use `tomcat-embed-programmatic` instead of the default Tomcat.
-+
-[source,xml]
-----
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-web</artifactId>
-    <exclusions>
-        <exclusion>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-core</artifactId>
-        </exclusion>
-        <exclusion>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-websocket</artifactId>
-        </exclusion>
-    </exclusions>
-</dependency>
-<dependency>
-    <groupId>org.apache.tomcat.experimental</groupId>
-    <artifactId>tomcat-embed-programmatic</artifactId>
-    <version>${tomcat.version}</version>
-</dependency>
 ----
 
 . Add a `HelloController` class that returns the user's information: [`sb-hello`]
@@ -313,7 +288,7 @@ spring.security.oauth2.resourceserver.jwt.issuer-uri=https://{yourOktaDomain}/oa
 
 . Compile your Spring Boot app into a native executable using the `native` profile:
 
-  ./mvnw package -Pnative
+  ./mvnw native:compile -Pnative
 +
 TIP: To build a native app and a Docker container, use the Spring Boot Maven plugin and `./mvnw spring-boot:build-image`.
 
@@ -332,18 +307,18 @@ TIP: To build a native app and a Docker container, use the Spring Boot Maven plu
 . Write each time down, add them up, and divide by five for the average. For example:
 +
 ----
-Micronaut: (13 + 14 + 14 + 14 + 13) / 5 = 13.6
-Quarkus: (15 + 16 + 15 + 16 + 15) / 5 = 15.4
-Spring Boot: (30 + 31 + 29 + 30 + 29) / 5 = 29.8
+Micronaut: (17 + 19 + 19 + 20 + 15) / 5 = 18
+Quarkus: (25 + 18 + 20 + 19 + 21) / 5 = 20.6
+Spring Boot: (39 + 40 + 38 + 37 + 41) / 5 = 39
 ----
 
 .Native Java startup times in milliseconds
 |===
 |Framework | Command executed | Milliseconds to start
 
-|Micronaut | `./micronaut/target/app` | 13.6
-|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 15.4
-|Spring Boot | `./spring-boot/target/demo` | 29.8
+|Micronaut | `./micronaut/target/app` | 18
+|Quarkus | `./quarkus/target/quarkus-1.0.0-SNAPSHOT-runner` | 20.6
+|Spring Boot | `./spring-boot/target/demo` | 39
 |===
 
 == Memory Usage Comparison
@@ -361,9 +336,9 @@ Substitute `<executable>` as follows:
 |===
 |Framework | Executable | Megabytes before request | Megabytes after request| Megabytes after 5 requests
 
-|Micronaut | `app` | 44 | 60 | 70
-|Quarkus | `quarkus` | 38 | 50 | 52
-|Spring Boot | `demo` | 63 | 75 | 76
+|Micronaut | `app` | 43 | 58 | 69
+|Quarkus | `quarkus` | 37 | 48 | 50
+|Spring Boot | `demo` | 74 | 98 | 99
 |===
 
 IMPORTANT: If you disagree with these numbers and think X framework should be faster, I encourage you to clone https://github.com/oktadev/native-java-examples[the repo] and run these tests yourself. If you get faster startup times for Spring Boot, do you get faster startup times for Micronaut and Quarkus too?
