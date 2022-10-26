@@ -103,7 +103,7 @@ spring.security.oauth2.resourceserver.jwt.issuer-uri=https://{yourOktaDomain}/oa
 
   ./mvnw native:compile -Pnative
 +
-TIP: To build a native app and a Docker container, use the Spring Boot Maven plugin and `./mvnw spring-boot:build-image`.
+TIP: To build a native app and a Docker container, use the Spring Boot Maven plugin and `./mvnw spring-boot:build-image -Pnative`.
 
 . Start your Spring Boot app:
 
