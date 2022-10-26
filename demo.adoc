@@ -238,7 +238,7 @@ public class HelloResourceTest {
 ----
 https start.spring.io/starter.zip \
   bootVersion==3.0.0-RC1 \
-  dependencies==web,oauth2-resource-server \
+  dependencies==web,oauth2-resource-server,native \
   packageName==com.okta.rest \
   name==spring-boot \
   type==maven-project \
