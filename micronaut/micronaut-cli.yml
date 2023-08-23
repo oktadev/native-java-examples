@@ -3,4 +3,4 @@ defaultPackage: com.okta.rest
 testFramework: junit
 sourceLanguage: java
 buildTool: maven
-features: [annotation-api, app-name, http-client, jackson-databind, java, java-application, junit, logback, maven, micronaut-aot, netty-server, readme, security-annotations, security-jwt, shade, yaml]
+features: [app-name, http-client, java, java-application, junit, logback, maven, maven-enforcer-plugin, micronaut-aot, netty-server, properties, readme, security-annotations, security-jwt, serialization-jackson, shade, validation]
