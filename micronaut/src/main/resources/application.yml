@@ -1,5 +1,4 @@
 micronaut:
   application:
     name: app
-  security.token.jwt.enabled: true
   security.token.jwt.signatures.jwks.okta.url: https://dev-17700857.okta.com/oauth2/default/v1/keys
