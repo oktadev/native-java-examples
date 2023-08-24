@@ -87,7 +87,7 @@
                   <dependency>
                       <groupId>io.micronaut.security</groupId>
                       <artifactId>micronaut-security-aot</artifactId>
-                      <version>4.0.4</version>
+                      <version>${micronaut.security.version}</version>
                   </dependency>
               </aotDependencies>
             <configFile>aot-${packaging}.properties</configFile>
